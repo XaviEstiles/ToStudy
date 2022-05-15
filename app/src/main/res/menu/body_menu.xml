@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuLateral"
+        android:title="Menu">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/eventosRecientesFragment"
+                    android:icon="@drawable/ic_evento"
+                    android:title="Eventos" />
+
+                <item
+                    android:id="@+id/calendarioFragment"
+                    android:icon="@drawable/ic_calendario"
+                    android:title="Calendario" />
+
+                <item
+                    android:id="@+id/objetivoFragment"
+                    android:icon="@drawable/ic_rutina"
+                    android:title="Objetivo" />
+
+                <item
+                    android:id="@+id/ajustesFragment"
+                    android:icon="@drawable/ic_ajustes"
+                    android:title="Ajustes" />
+
+                <item
+                    android:id="@+id/aboutFragment"
+                    android:icon="@drawable/ic_aboutus"
+                    android:title="About Us" />
+
+            </group>
+        </menu>
+    </item>
+</menu>

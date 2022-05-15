@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="idiomas_array" >
+        <item>Español</item>
+        <item>Ingles</item>
+    </string-array>
+    <string-array name="ordenar_array" >
+        <item>Fecha</item>
+        <item>Prioridad</item>
+    </string-array>
+    <string-array name="prioridades_array" >
+        <item>Baja</item>
+        <item>Media</item>
+        <item>Alta</item>
+    </string-array>
+</resources>

@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">ToStudy</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
+    <string name="btnLogin" translatable="false">LOGIN</string>
+    <string name="btnRegistrar">REGISTRAR</string>
+    <string name="btnRegistrarse">REGISTRARSE</string>
+    <string name="tvPlataformasLogin">Iniciar sesion con otras plataformas</string>
+    <string name="tvPlataformasSingUp">Registrarse con otras plataformas</string>
+    <string name="tieUser">Usuario</string>
+    <string name="tiePassword">Contraseña</string>
+    <string name="tieRePassword">Repetir contraseña</string>
+    <string name="cbRecuerdame_txt">Recordar</string>
+    <string name="tieNom">Nombre</string>
+    <string name="tieEmail" translatable="false">Email</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
+    <string name="open" translatable="false">open</string>
+    <string name="close" translatable="false">close</string>
+    <string name="tvVersion" translatable="false">Version 1.0</string>
+    <string name="tvDesarollafo">Aplicacion desarollada por Xavier Estil·les Beltrán</string>
+    <string name="tvEmail" translatable="false">example@hotmail.com</string>
+    <string name="tvNumTelf" translatable="false">+34 600 19 04 27</string>
+    <string name="contacta_con_nosotros">Contacta con nosotros</string>
+    <string name="tvNombre">Nombre Completo</string>
+    <string name="formato_hora" translatable="false">hh:mm</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="AñadirObjetivo">Añadir un objetivo</string>
+    <string name="AñadirEvento">Añadir un evento</string>
+    <string name="nombre">Nombre</string>
+    <string name="evento">Evento</string>
+    <string name="hora_de_inicio">Hora de inicio</string>
+    <string name="hora_de_fin">Hora de fin</string>
+    <string name="descipcion">Descipcion</string>
+    <string name="anadir_evento">Completar</string>
+    <string name="name_channel">tostudy_chanel</string>
+    <string name="notification_title_add_evento">Evento creado</string>
+</resources>

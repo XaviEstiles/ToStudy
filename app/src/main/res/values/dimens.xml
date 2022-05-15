@@ -1,0 +1,31 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="til_margin">3dp</dimen>
+    <dimen name="cbBnt_marginBottom">20dp</dimen>
+    <dimen name="btnLogin_width">100dp</dimen>
+    <dimen name="tilLogin">350dp</dimen>
+    <dimen name="cbRecuerdame">30dp</dimen>
+    <dimen name="tilSingUp_margin">10dp</dimen>
+    <dimen name="imgSingUp">80dp</dimen>
+    <dimen name="imgLogin">100dp</dimen>
+    <dimen name="btnLogin_margin">15dp</dimen>
+    <dimen name="linealPlataformas_marginBottom">20dp</dimen>
+    <dimen name="ivLogo_marginTop">244dp</dimen>
+    <dimen name="tvLoading_marginTop">144dp</dimen>
+    <dimen name="progresBar_marginStart">16dp</dimen>
+    <dimen name="progresBar_margintop">144dp</dimen>
+    <dimen name="imgPerfil_marginTop">40dp</dimen>
+    <dimen name="imgPerfil_tamaño">70dp</dimen>
+    <dimen name="tvNombre_marginTop">15dp</dimen>
+    <dimen name="llyHeader_tamaño">220dp</dimen>
+    <dimen name="tvDesarollado_marginTop">100dp</dimen>
+    <dimen name="tvEmail_marginTop">20dp</dimen>
+    <dimen name="tvTlf_marginTop">12dp</dimen>
+    <dimen name="tvContacta_marginTop">136dp</dimen>
+    <dimen name="tvVersio_marginTop">32dp</dimen>
+    <dimen name="str_width">68dp</dimen>
+    <dimen name="tvNombre2_marginTop">55dp</dimen>
+    <dimen name="imgPerfil_marginLeft">55dp</dimen>
+    <dimen name="tvNombre2_marginLeft">10dp</dimen>
+    <dimen name="til_margin_editar">10dp</dimen>
+</resources>

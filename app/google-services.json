@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "552484438980",
+    "project_id": "tostudy-b1c81",
+    "storage_bucket": "tostudy-b1c81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552484438980:android:ff76418b91a225aec71a91",
+        "android_client_info": {
+          "package_name": "com.example.tostudy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552484438980-s5jll9elg8mcagnlogtto2t43mnll706.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnstgALlqvuHiAnACPRWcrKSQ9DCkZoeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552484438980-s5jll9elg8mcagnlogtto2t43mnll706.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

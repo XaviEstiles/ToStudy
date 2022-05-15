@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ToStudy</string>
+    <string name="tieUser">User</string>
+    <string name="tiePassword">Password</string>
+    <string name="tieRePassword">Repeat Password</string>
+    <string name="btnRegistrar">SIGN UP</string>
+    <string name="btnRegistrarse">SIGN UP</string>
+    <string name="tvPlataformasLogin">Login with other platforms</string>
+    <string name="tvPlataformasSingUp">Sign up with other platforms</string>
+    <string name="cbRecuerdame_txt">Remember</string>
+    <string name="tieNom">Name</string>
+    <string name="tvDesarollafo">Application developed by Xavier Estil les Beltrán</string>
+    <string name="contacta_con_nosotros">Contact us</string>
+    <string name="tvNombre">" Full name"</string>
+    <string name="AñadirObjetivo">Add a goal</string>
+    <string name="AñadirEvento">Add a event</string>
+</resources>

@@ -1,0 +1,82 @@
+package com.example.tostudy.ui.login;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tostudy.databinding.ActivityLoginBinding;
+import com.example.tostudy.ui.main.MainActivity;
+import com.example.tostudy.ui.singup.SingUpActivity;
+
+public class LoginActivity extends AppCompatActivity implements LoginContract.View {
+
+    private ActivityLoginBinding binding;
+    private LoginContract.Presenter presenter;
+    SharedPreferences prefs;
+
+    String email;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        presenter = new LoginPresenter(this);
+        prefs = getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
+        email = prefs.getString("Email", null);
+
+        if (email != null ){
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+
+        setContentView(binding.getRoot());
+
+        binding.btnLogin.setOnClickListener(view -> {
+            presenter.validateCredentials(binding.tieUser.getText().toString(),binding.tiePassword.getText().toString());
+        });
+
+        binding.btnRegistrar.setOnClickListener(view -> {
+            startActivity(new Intent(this, SingUpActivity.class));
+        });
+
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        prefs.edit().putString("Email",binding.tieUser.getText().toString()).apply();
+
+        Toast.makeText(this, msg,Toast.LENGTH_LONG).show();
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onFailure(String msg) {
+        Toast.makeText(this, msg,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setEmailErr() {
+        binding.tilUser.setError("Email erroneo");
+    }
+
+    @Override
+    public void setEmailEmpty() {
+        binding.tilUser.setError("Email vacio");
+    }
+
+    @Override
+    public void setPasswordErr() {
+        binding.tilPassword.setError("Contraseña erronea");
+    }
+
+    @Override
+    public void setPasswordEmpty() {
+        binding.tilPassword.setError("Contraseña vacia");
+    }
+}
