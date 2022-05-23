@@ -23,8 +23,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         FirebaseApp.initializeApp(getApplicationContext());
         prefs = getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
-
-
     }
 
     @Override

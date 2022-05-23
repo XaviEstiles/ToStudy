@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "552484438980",
-    "project_id": "tostudy-b1c81",
-    "storage_bucket": "tostudy-b1c81.appspot.com"
+    "project_number": "276039169159",
+    "project_id": "tostudy-edb1e",
+    "storage_bucket": "tostudy-edb1e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:552484438980:android:ff76418b91a225aec71a91",
+        "mobilesdk_app_id": "1:276039169159:android:1fd7ea1fce128b2c04b422",
         "android_client_info": {
           "package_name": "com.example.tostudy"
         }
       },
       "oauth_client": [
         {
-          "client_id": "552484438980-s5jll9elg8mcagnlogtto2t43mnll706.apps.googleusercontent.com",
+          "client_id": "276039169159-r903a5590e07b9kbnco59v4u10v2r427.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCnstgALlqvuHiAnACPRWcrKSQ9DCkZoeA"
+          "current_key": "AIzaSyBMFSdsGFBpHE18ekRVivSWuUVMYKG4fM4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "552484438980-s5jll9elg8mcagnlogtto2t43mnll706.apps.googleusercontent.com",
+              "client_id": "276039169159-r903a5590e07b9kbnco59v4u10v2r427.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

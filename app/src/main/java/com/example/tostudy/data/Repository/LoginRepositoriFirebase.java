@@ -43,8 +43,9 @@ public class LoginRepositoriFirebase implements LoginContract.Repository {
                         interactor.onSuccess("usuario correcto");
                     } else {
                         // If sign in fails, display a message to the user.
-                        //Log.w(TAG, "signInWithCustomToken:failure", task.getException());
+                        Log.w(TAG, "signInWithCustomToken:failure", task.getException());
                         interactor.onFailure("Error de autenticacion" + task.getException());
+
                     }
                 }
             });
