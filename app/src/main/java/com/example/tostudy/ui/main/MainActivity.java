@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Binder;
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
 import com.example.tostudy.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 
@@ -111,16 +112,11 @@ public class MainActivity extends AppCompatActivity{
 
         ImageView img = ((ImageView) binding.navigationView.getHeaderView(0).findViewById(R.id.imgPerfilMenu));
 
-        Drawable originalDrawable = getResources().getDrawable(R.drawable.imgperfil);
-        Bitmap originalBitmap = ((BitmapDrawable) originalDrawable).getBitmap();
-
-        //creamos el drawable redondeado
-        RoundedBitmapDrawable roundedDrawable = RoundedBitmapDrawableFactory.create(getResources(), originalBitmap);
-
-        //asignamos el CornerRadius
-        roundedDrawable.setCornerRadius(originalBitmap.getHeight());
-
-        img.setImageDrawable(roundedDrawable);
+        Glide.with(getApplicationContext())
+                .load("http://vps-9e48c221.vps.ovh.net/fotos-perfil/prueba.jpg")
+                .error(R.drawable.imgperfil)
+                .circleCrop()
+                .into(img);
 
         SharedPreferences prefs = getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
         String email = prefs.getString("Email", "User1234");

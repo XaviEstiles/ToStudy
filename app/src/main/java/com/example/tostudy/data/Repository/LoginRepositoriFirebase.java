@@ -4,10 +4,14 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.tostudy.R;
 import com.example.tostudy.ui.base.OnRepositoryCallBack;
 import com.example.tostudy.ui.login.LoginContract;
 import com.example.tostudy.ui.singup.SingUpActivity;
 import com.example.tostudy.ui.singup.SingUpContract;
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -50,6 +54,35 @@ public class LoginRepositoriFirebase implements LoginContract.Repository {
                 }
             });
     }
+
+    /*@Override
+    public void loginWithGoogle(String idToken) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        Log.d(TAG, "signInWithCustomToken:success");
+
+        GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(idToken)
+                .requestEmail()
+                .build();
+
+        //GoogleSignInClient
+        mAuth.signInWithEmailAndPassword()
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+
+                            interactor.onSuccess("usuario correcto");
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCustomToken:failure", task.getException());
+                            interactor.onFailure("Error de autenticacion" + task.getException());
+
+                        }
+                    }
+                });
+    }*/
 
     public void SingUp(String email, String pass) {
         Log.d(TAG, email);
