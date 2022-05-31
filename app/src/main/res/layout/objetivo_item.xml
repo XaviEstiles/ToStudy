@@ -104,21 +104,6 @@
                     app:layout_constraintVertical_bias="0.521"
                     app:srcCompat="@drawable/ic_objetivo" />
 
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    style="@style/MyRatingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="65dp"
-                    android:layout_marginTop="45dp"
-                    android:numStars="5"
-                    android:progressTint="#1de9b6"
-                    android:scaleX="0.6"
-                    android:scaleY="0.6"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.804"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <ImageView
                     android:id="@+id/imgPrioridad"
                     android:layout_width="20dp"
@@ -141,6 +126,19 @@
                     app:layout_constraintEnd_toStartOf="@+id/imgPrioridad"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.225" />
+
+                <ProgressBar
+                    android:id="@+id/pbProgreso"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:max="100"
+                    android:scaleY="2.3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.563"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </RelativeLayout>

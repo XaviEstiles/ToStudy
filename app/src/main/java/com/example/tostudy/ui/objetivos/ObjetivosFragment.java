@@ -121,7 +121,12 @@ public class ObjetivosFragment extends Fragment implements ObjetivoAdapter.OnMan
 
     @Override
     public void onEditProgres(Objetivo objetivo) {
-        resultado = false;
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("objetivo", objetivo);
+        navController.navigate(R.id.action_objetivoFragment_to_infoObjetivosFragment,bundle);
+
+        /*resultado = false;
         presenter.editProgres(objetivo);
         if(objetivo.getProgreso() == 5){
             //dialogo para eliminarlo
@@ -138,7 +143,7 @@ public class ObjetivosFragment extends Fragment implements ObjetivoAdapter.OnMan
                 }
             });
             NavHostFragment.findNavController(this).navigate(R.id.action_objetivoFragment_to_baseDialogFragment,bundle);
-        }
+        }*/
     }
 
     @Override

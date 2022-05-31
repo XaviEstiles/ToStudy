@@ -17,12 +17,6 @@
             android:exported="true"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.ToStudy.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
         </activity>
         <activity
             android:name=".ui.singup.SingUpActivity"
@@ -36,7 +30,11 @@
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ToStudy.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <service android:name=".broadcastreciver.TemporizadorServiceObj"
             android:permission="android.permission.BIND_JOB_SERVICE"

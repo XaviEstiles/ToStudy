@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -47,7 +48,7 @@ public class ObjetivoAdapter extends RecyclerView.Adapter<ObjetivoAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tv.setText(list.get(position).getNombre());
         holder.tvFecha.setText(list.get(position).getFecha());
-        holder.pro.setRating(list.get(position).getProgreso());
+        holder.pro.setProgress((int)list.get(position).getProgreso());
 
         switch (list.get(position).getPrioridad()){
             case BAJA:
@@ -60,7 +61,7 @@ public class ObjetivoAdapter extends RecyclerView.Adapter<ObjetivoAdapter.ViewHo
                 holder.pri.setImageResource(R.drawable.ic_importancia_alta);
                 break;
         }
-        holder.bind(list.get(position),listener);
+        holder.bind(listener, list.get(position));
     }
 
     @Override
@@ -69,30 +70,28 @@ public class ObjetivoAdapter extends RecyclerView.Adapter<ObjetivoAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        View view;
         TextView tv;
         TextView tvFecha;
         ImageView pri;
-        RatingBar pro;
+        ProgressBar pro;
         RelativeLayout layoutABorrar;
         RelativeLayout eliminar;
         RelativeLayout editar;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            view = itemView;
             tv = itemView.findViewById(R.id.tv);
             tvFecha = itemView.findViewById(R.id.tvFecha);
             pri = itemView.findViewById(R.id.imgPrioridad);
-            pro = itemView.findViewById(R.id.ratingBar);
+            pro = itemView.findViewById(R.id.pbProgreso);
             layoutABorrar = itemView.findViewById(R.id.layoutABorrar);
             eliminar = itemView.findViewById(R.id.eliminar);
             editar = itemView.findViewById(R.id.editar);
-
         }
-
-        public void bind(Objetivo objetivo, OnManagerObjetivosList managerObjetivosList){
-            pro.setOnRatingBarChangeListener((ratingBar, v, b) -> {
-                objetivo.setProgreso(v);
-                managerObjetivosList.onEditProgres(objetivo);
-
+        public void bind(OnManagerObjetivosList listener, Objetivo item){
+            itemView.setOnClickListener(v->{
+                listener.onEditProgres(item);
             });
         }
     }

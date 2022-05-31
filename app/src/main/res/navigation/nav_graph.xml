@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_objetivoFragment_to_baseDialogFragment"
             app:destination="@id/baseDialogFragment" />
+        <action
+            android:id="@+id/action_objetivoFragment_to_infoObjetivosFragment"
+            app:destination="@id/infoObjetivosFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -79,9 +82,6 @@
             app:argType="com.example.tostudy.data.model.Objetivo"
             app:nullable="true"
             android:defaultValue="@null" />
-        <action
-            android:id="@+id/action_editarObjetivoFragment_to_objetivoFragment"
-            app:destination="@id/objetivoFragment" />
     </fragment>
     <dialog
         android:id="@+id/baseDialogFragment"
@@ -92,4 +92,12 @@
         android:name="com.example.tostudy.PerfilFragment"
         android:label="fragment_perfil"
         tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/infoObjetivosFragment"
+        android:name="com.example.tostudy.ui.dialog.InfoObjetivosFragment"
+        android:label="InfoObjetivosFragment">
+        <argument
+            android:name="objetivo"
+            app:argType="com.example.tostudy.data.model.Objetivo" />
+    </fragment>
 </navigation>

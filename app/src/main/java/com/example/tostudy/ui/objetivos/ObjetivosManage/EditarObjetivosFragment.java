@@ -100,6 +100,7 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
                         break;
                 }
                 presenter.edit(objetivo);
+                navController.navigate(R.id.objetivoFragment);
             });
         }
     }
@@ -131,6 +132,7 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
                 }
                 presenter.add(objetivo);
                 iniJob();
+                navController.navigate(R.id.objetivoFragment);
             });
         }
     }

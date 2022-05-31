@@ -55,7 +55,7 @@ public class CalendarioFragment extends Fragment implements EventoContract.View{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("Routine Calendar");
+        toolbar.setTitle("ToStudy");
         toolbar.setVisibility(View.VISIBLE);
         binding.calendarView.setOnDateChangeListener((calendarView, i, i1, i2) -> {
             dateString = String.format("%02d", i2)+"/"+String.format("%02d", (i1+1))+"/"+String.format("%04d", i);
