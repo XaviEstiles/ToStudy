@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.tostudy.R;
 import com.example.tostudy.databinding.FragmentAjustesBinding;
 import com.example.tostudy.ui.login.LoginActivity;
@@ -45,18 +46,12 @@ public class AjustesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ImageView img = binding.imgPerfilAjustes;
 
-        Drawable originalDrawable = getResources().getDrawable(R.drawable.imgperfil);
-        Bitmap originalBitmap = ((BitmapDrawable) originalDrawable).getBitmap();
-
-        //creamos el drawable redondeado
-        RoundedBitmapDrawable roundedDrawable = RoundedBitmapDrawableFactory.create(getResources(), originalBitmap);
-
-        //asignamos el CornerRadius
-        roundedDrawable.setCornerRadius(originalBitmap.getHeight());
-
-        img.setImageDrawable(roundedDrawable);
+        Glide.with(getContext())
+                .load("http://vps-9e48c221.vps.ovh.net/fotos-perfil/prueba.jpg")
+                .error(R.drawable.imgperfil)
+                .circleCrop()
+                .into(binding.imgPerfilAjustes);
 
         binding.btnCerrarSesion.setOnClickListener(v -> {
             prefs.edit().remove("Email").apply();

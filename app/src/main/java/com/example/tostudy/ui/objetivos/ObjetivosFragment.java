@@ -120,7 +120,7 @@ public class ObjetivosFragment extends Fragment implements ObjetivoAdapter.OnMan
     }
 
     @Override
-    public void onEditProgres(Objetivo objetivo) {
+    public void showInfo(Objetivo objetivo) {
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("objetivo", objetivo);

@@ -17,7 +17,7 @@
     <dimen name="imgPerfil_marginTop">40dp</dimen>
     <dimen name="imgPerfil_tamaño">70dp</dimen>
     <dimen name="tvNombre_marginTop">15dp</dimen>
-    <dimen name="llyHeader_tamaño">220dp</dimen>
+    <dimen name="llyHeader_tamaño">250dp</dimen>
     <dimen name="tvDesarollado_marginTop">100dp</dimen>
     <dimen name="tvEmail_marginTop">20dp</dimen>
     <dimen name="tvTlf_marginTop">12dp</dimen>

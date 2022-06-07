@@ -100,6 +100,9 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
             iniBtnEditar();
         }else{
             evento = new Evento();
+            binding.textInputLayout2.getEditText().setText(String.format("%02d", hora) + ":" + String.format("%02d", min));
+            binding.textInputLayout3.getEditText().setText(String.format("%02d", hora+1) + ":" + String.format("%02d", min));
+            binding.textInputLayout4.getEditText().setText(String.format("%02d", diaDelMes) + "/" + String.format("%02d", (mes+1)) + "/" + String.format("%04d", anio));
             iniBtnAdd();
         }
         binding.imgDataPicker.setOnClickListener(v-> showDatePickerDialog());

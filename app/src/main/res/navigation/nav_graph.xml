@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_calendarioFragment_to_editarEventoFragment"
             app:destination="@id/editarEventoFragment" />
+        <action
+            android:id="@+id/action_calendarioFragment_to_infoEventFragment"
+            app:destination="@id/infoEventFragment" />
     </fragment>
     <fragment
         android:id="@+id/ajustesFragment"
@@ -36,6 +39,9 @@
             app:argType="com.example.tostudy.data.model.Evento"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_eventosRecientesFragment_to_infoEventFragment"
+            app:destination="@id/infoEventFragment" />
     </fragment>
     <fragment
         android:id="@+id/objetivoFragment"
@@ -94,10 +100,19 @@
         tools:layout="@layout/fragment_perfil" />
     <fragment
         android:id="@+id/infoObjetivosFragment"
-        android:name="com.example.tostudy.ui.dialog.InfoObjetivosFragment"
+        android:name="com.example.tostudy.ui.objetivos.InfoObjetivosFragment"
         android:label="InfoObjetivosFragment">
         <argument
             android:name="objetivo"
             app:argType="com.example.tostudy.data.model.Objetivo" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoEventFragment"
+        android:name="com.example.tostudy.ui.eventos.InfoEventFragment"
+        android:label="fragment_info_event"
+        tools:layout="@layout/fragment_info_event" >
+        <argument
+            android:name="evento"
+            app:argType="com.example.tostudy.data.model.Evento" />
     </fragment>
 </navigation>

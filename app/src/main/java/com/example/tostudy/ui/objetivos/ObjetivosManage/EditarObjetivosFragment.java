@@ -70,6 +70,8 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
             iniBtnEditar();
         }else{
             objetivo = new Objetivo();
+
+            binding.tilFechaObj.getEditText().setText(String.format("%02d", diaDelMes) + "/" + String.format("%02d", (mes+1)) + "/" + String.format("%04d", anio));
             iniBtnAdd();
         }
 

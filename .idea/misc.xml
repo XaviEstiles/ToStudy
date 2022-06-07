@@ -13,8 +13,12 @@
         <entry key="..\:/Dev/ToStudy/app/src/main/res/layout/evento_item.xml" value="0.4" />
         <entry key="..\:/Dev/ToStudy/app/src/main/res/layout/fragment_about.xml" value="0.13333333333333333" />
         <entry key="..\:/Dev/ToStudy/app/src/main/res/layout/fragment_dialog_objetivos.xml" value="0.536" />
+        <entry key="..\:/Dev/ToStudy/app/src/main/res/layout/fragment_editar_evento.xml" value="0.259375" />
+        <entry key="..\:/Dev/ToStudy/app/src/main/res/layout/fragment_editar_objetivo.xml" value="0.259375" />
         <entry key="..\:/Dev/ToStudy/app/src/main/res/layout/fragment_eventos_recientes.xml" value="0.259375" />
-        <entry key="..\:/Dev/ToStudy/app/src/main/res/layout/fragment_info_objetivos.xml" value="0.12" />
+        <entry key="..\:/Dev/ToStudy/app/src/main/res/layout/fragment_info_event.xml" value="0.2" />
+        <entry key="..\:/Dev/ToStudy/app/src/main/res/layout/fragment_info_objetivos.xml" value="0.2" />
+        <entry key="..\:/Dev/ToStudy/app/src/main/res/layout/fragment_perfil.xml" value="0.13385416666666666" />
         <entry key="..\:/Dev/ToStudy/app/src/main/res/layout/header_menu.xml" value="0.259375" />
         <entry key="..\:/Dev/ToStudy/app/src/main/res/layout/objetivo_item.xml" value="0.4" />
         <entry key="..\:/Dev/ToStudy/app/src/main/res/menu/body_menu.xml" value="0.259375" />

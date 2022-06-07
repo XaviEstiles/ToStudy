@@ -19,11 +19,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder> {
+
+    interface OnManagerEventosList {
+        void showInfo(Evento evento);
+    }
     
     private ArrayList<Evento> list;
+    private OnManagerEventosList listener;
 
-    public EventoAdapter(ArrayList<Evento> list) {
+    public EventoAdapter(ArrayList<Evento> list,OnManagerEventosList listener) {
         this.list = list;
+        this.listener = listener;
     }
 
     @NonNull
@@ -51,6 +57,8 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder
                 holder.p.setImageResource(R.drawable.ic_importancia_alta);
                 break;
         }
+
+        holder.bind(list.get(position),listener);
     }
 
     @Override
@@ -75,6 +83,10 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder
             layoutABorrar = itemView.findViewById(R.id.layoutABorrar);
             eliminar = itemView.findViewById(R.id.eliminar);
             editar = itemView.findViewById(R.id.editar);
+
+        }
+        public void bind(Evento evento, OnManagerEventosList listener){
+            itemView.setOnClickListener(v-> listener.showInfo(evento));
         }
     }
 

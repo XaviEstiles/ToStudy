@@ -111,18 +111,16 @@ public class MainActivity extends AppCompatActivity{
         });
 
         ImageView img = ((ImageView) binding.navigationView.getHeaderView(0).findViewById(R.id.imgPerfilMenu));
+        TextView tvEmail = ((TextView) binding.navigationView.getHeaderView(0).findViewById(R.id.tvEmail));
+        TextView tvNombre = ((TextView) binding.navigationView.getHeaderView(0).findViewById(R.id.tvNombre));
+
+        tvEmail.setText(prefs.getString("Email","example@gmail.com"));
 
         Glide.with(getApplicationContext())
                 .load("http://vps-9e48c221.vps.ovh.net/fotos-perfil/prueba.jpg")
                 .error(R.drawable.imgperfil)
                 .circleCrop()
                 .into(img);
-
-        SharedPreferences prefs = getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
-        String email = prefs.getString("Email", "User1234");
-
-        ((TextView)binding.navigationView.getHeaderView(0).findViewById(R.id.tvNombre)).setText(email);
-        binding.navigationView.setBackgroundColor(getResources().getColor(R.color.secondaryLightColor));
     }
 
     @Override

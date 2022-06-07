@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CalendarioFragment extends Fragment implements EventoContract.View{
+public class CalendarioFragment extends Fragment implements EventoContract.View, EventoAdapter.OnManagerEventosList {
 
     EventoContract.Presenter presenter;
     NavController navController;
@@ -77,7 +77,7 @@ public class CalendarioFragment extends Fragment implements EventoContract.View{
 
     private void initRvEventos(){
         //1. sera inicializar adapter
-        adapter = new EventoAdapter(new ArrayList<>());
+        adapter = new EventoAdapter(new ArrayList<>(),this);
         //2. obligatoriamente se debe indicar que layout tendra el recycler view
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         //3. Asignar el layout al recycler
@@ -151,5 +151,12 @@ public class CalendarioFragment extends Fragment implements EventoContract.View{
         CoordinatorLayout.LayoutParams appBarLayoutParams = (CoordinatorLayout.LayoutParams) binding.appBar.getLayoutParams();
         appBarLayoutParams.setBehavior(new AppBarLayout.Behavior());
         binding.appBar.setLayoutParams(appBarLayoutParams);
+    }
+
+    @Override
+    public void showInfo(Evento evento) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("evento", evento);
+        navController.navigate(R.id.action_calendarioFragment_to_infoEventFragment,bundle);
     }
 }

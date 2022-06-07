@@ -60,7 +60,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/descipcion" />
+                android:hint="@string/descipcion"
+                android:maxLength="200" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--<com.google.android.material.textfield.TextInputLayout
@@ -139,7 +140,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nombre"
-                android:importantForAutofill="noExcludeDescendants" />
+                android:importantForAutofill="noExcludeDescendants"
+                android:maxLength="14" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView

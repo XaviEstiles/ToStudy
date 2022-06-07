@@ -1,14 +1,10 @@
 package com.example.tostudy.ui.objetivos;
 
-import android.annotation.SuppressLint;
-import android.os.Debug;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,7 +25,7 @@ public class ObjetivoAdapter extends RecyclerView.Adapter<ObjetivoAdapter.ViewHo
     OnManagerObjetivosList listener;
 
     public interface OnManagerObjetivosList{
-        void onEditProgres(Objetivo objetivo);
+        void showInfo(Objetivo objetivo);
     }
 
     public ObjetivoAdapter(ArrayList<Objetivo> list, OnManagerObjetivosList listener) {
@@ -91,7 +87,7 @@ public class ObjetivoAdapter extends RecyclerView.Adapter<ObjetivoAdapter.ViewHo
         }
         public void bind(OnManagerObjetivosList listener, Objetivo item){
             itemView.setOnClickListener(v->{
-                listener.onEditProgres(item);
+                listener.showInfo(item);
             });
         }
     }

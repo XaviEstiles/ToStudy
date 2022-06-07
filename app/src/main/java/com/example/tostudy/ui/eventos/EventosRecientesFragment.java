@@ -36,7 +36,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventosRecientesFragment extends Fragment implements EventoContract.View, RecyclerItemTouchHelperEventos.RecyclerItemTouchHelperListener {
+public class EventosRecientesFragment extends Fragment implements EventoAdapter.OnManagerEventosList, EventoContract.View, RecyclerItemTouchHelperEventos.RecyclerItemTouchHelperListener {
     
     EventoContract.Presenter presenter;
     private EventoAdapter adapter;
@@ -114,7 +114,7 @@ public class EventosRecientesFragment extends Fragment implements EventoContract
 
     private void initRvEventos(){
         //1. sera inicializar adapter
-        adapter = new EventoAdapter(new ArrayList<>());
+        adapter = new EventoAdapter(new ArrayList<>(),this);
         //2. obligatoriamente se debe indicar que layout tendra el recycler view
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         //3. Asignar el layout al recycler
@@ -205,5 +205,12 @@ public class EventosRecientesFragment extends Fragment implements EventoContract
         CoordinatorLayout.LayoutParams appBarLayoutParams = (CoordinatorLayout.LayoutParams) binding.appBar.getLayoutParams();
         appBarLayoutParams.setBehavior(new AppBarLayout.Behavior());
         binding.appBar.setLayoutParams(appBarLayoutParams);
+    }
+
+    @Override
+    public void showInfo(Evento evento) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("evento", evento);
+        navController.navigate(R.id.action_eventosRecientesFragment_to_infoEventFragment,bundle);
     }
 }

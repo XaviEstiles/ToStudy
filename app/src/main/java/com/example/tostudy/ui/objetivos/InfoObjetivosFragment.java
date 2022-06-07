@@ -1,4 +1,4 @@
-package com.example.tostudy.ui.dialog;
+package com.example.tostudy.ui.objetivos;
 
 import android.os.Bundle;
 
