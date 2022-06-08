@@ -1,4 +1,4 @@
-package com.example.tostudy;
+package com.example.tostudy.ui.fragment;
 
 import static java.lang.System.load;
 
@@ -24,6 +24,7 @@ import com.androidplot.pie.Segment;
 import com.androidplot.pie.SegmentFormatter;
 import com.androidplot.util.PixelUtils;
 import com.bumptech.glide.Glide;
+import com.example.tostudy.R;
 import com.example.tostudy.databinding.FragmentPerfilBinding;;
 
 public class PerfilFragment extends Fragment {
@@ -54,18 +55,19 @@ public class PerfilFragment extends Fragment {
         binding = FragmentPerfilBinding.inflate(getLayoutInflater());
 
         binding.tvEmail.setText(prefs.getString("Email","example@gmail.com"));
+        binding.tvNombre.setText(prefs.getString("Name","example"));
+
+        Glide.with(getContext())
+                .load(prefs.getString("Img",""))
+                .error(R.drawable.imgperfil)
+                .circleCrop()
+                .into(binding.imgPerfil);
 
         pie = binding.mySimplePieChart;
 
         final float paddingTop = PixelUtils.dpToPix(60);
         final float padding = PixelUtils.dpToPix(30);
         pie.getPie().setPadding(padding, paddingTop, padding, padding);
-
-        Glide.with(getContext())
-                .load("http://vps-9e48c221.vps.ovh.net/fotos-perfil/prueba.jpg")
-                .error(R.drawable.imgperfil)
-                .circleCrop()
-                .into(binding.imgPerfil);
 
         s1 = new Segment("Completados", 3);
         s2 = new Segment("No completados", 1);

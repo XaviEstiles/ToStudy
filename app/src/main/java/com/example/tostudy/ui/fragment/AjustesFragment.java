@@ -38,8 +38,6 @@ public class AjustesFragment extends Fragment {
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("ToStudy");
         toolbar.setVisibility(View.VISIBLE);
-        String email = prefs.getString("Email", "User1234");
-        binding.tvNombre.setText(email);
 
         super.onCreate(savedInstanceState);
     }
@@ -47,8 +45,11 @@ public class AjustesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        binding.tvEmail.setText(prefs.getString("Email","example@gmail.com"));
+        binding.tvNombre.setText(prefs.getString("Name","example"));
+
         Glide.with(getContext())
-                .load("http://vps-9e48c221.vps.ovh.net/fotos-perfil/prueba.jpg")
+                .load(prefs.getString("Img",""))
                 .error(R.drawable.imgperfil)
                 .circleCrop()
                 .into(binding.imgPerfilAjustes);

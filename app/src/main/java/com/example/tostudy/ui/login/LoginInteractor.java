@@ -4,7 +4,7 @@ import android.util.Log;
 import android.util.Patterns;
 
 import com.example.tostudy.data.Repository.LoginRepositoriFirebase;
-import com.example.tostudy.data.Repository.LoginRepository;
+import com.example.tostudy.data.model.User;
 import com.example.tostudy.ui.base.OnRepositoryCallBack;
 import com.example.tostudy.utils.CommonUtils;
 
@@ -39,8 +39,8 @@ public class LoginInteractor implements OnRepositoryCallBack {
     }
 
     @Override
-    public void onSuccess(String msg) {
-        presenter.onSuccess(msg);
+    public void onSuccess(String msg, User user) {
+        presenter.onSuccess(msg,user);
     }
 
     @Override

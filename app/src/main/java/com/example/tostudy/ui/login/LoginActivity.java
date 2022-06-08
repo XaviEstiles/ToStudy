@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tostudy.data.model.User;
 import com.example.tostudy.databinding.ActivityLoginBinding;
 import com.example.tostudy.ui.main.MainActivity;
 import com.example.tostudy.ui.singup.SingUpActivity;
@@ -47,8 +48,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     }
 
     @Override
-    public void onSuccess(String msg) {
-        prefs.edit().putString("Email",binding.tieUser.getText().toString()).apply();
+    public void onSuccess(String msg, User user) {
+        prefs.edit().putString("Email", user.getEmail()).apply();
+        prefs.edit().putString("Name",user.getUser()).apply();
+        prefs.edit().putString("Img",user.getImg()).apply();
 
         Toast.makeText(this, msg,Toast.LENGTH_LONG).show();
         startActivity(new Intent(this, MainActivity.class));

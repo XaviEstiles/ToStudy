@@ -24,7 +24,7 @@
     <dimen name="tvContacta_marginTop">136dp</dimen>
     <dimen name="tvVersio_marginTop">32dp</dimen>
     <dimen name="str_width">68dp</dimen>
-    <dimen name="tvNombre2_marginTop">55dp</dimen>
+    <dimen name="tvNombre2_marginTop">45dp</dimen>
     <dimen name="imgPerfil_marginLeft">55dp</dimen>
     <dimen name="tvNombre2_marginLeft">10dp</dimen>
     <dimen name="til_margin_editar">10dp</dimen>

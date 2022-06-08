@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.tostudy.data.model.User;
 import com.example.tostudy.databinding.ActivitySingUpBinding;
 import com.example.tostudy.ui.login.LoginActivity;
 import com.example.tostudy.ui.main.MainActivity;
@@ -35,7 +36,7 @@ public class SingUpActivity extends AppCompatActivity implements SingUpContract.
     }
 
     @Override
-    public void onSuccess(String msg) {
+    public void onSuccess(String msg, User user) {
         startActivity(new Intent(this, LoginActivity.class));
         finishAffinity();
     }

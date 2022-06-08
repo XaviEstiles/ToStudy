@@ -1,12 +1,11 @@
-package com.example.tostudy.data.model;
+package com.example.tostudy.apiservice.dto;
 
-public class User {
-
+public class UserRequest {
     private String user;
     private String email;
     private String img;
 
-    public User(String user, String email, String img) {
+    public UserRequest(String user, String email, String img) {
         this.user = user;
         this.email = email;
         this.img = img;

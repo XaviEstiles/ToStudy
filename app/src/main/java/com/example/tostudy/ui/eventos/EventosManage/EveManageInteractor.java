@@ -4,10 +4,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.tostudy.data.Repository.EventoRepository;
 import com.example.tostudy.data.Repository.EventoRepositoryRoom;
 import com.example.tostudy.data.model.Evento;
-import com.example.tostudy.ui.base.OnRepositoryListCallBack;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

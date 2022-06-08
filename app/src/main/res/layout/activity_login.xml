@@ -48,16 +48,10 @@
             android:hint="@string/tiePassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <CheckBox
-        android:id="@+id/cbRecuerdame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/cbRecuerdame"
-        android:text="@string/cbRecuerdame_txt" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:orientation="horizontal"
         android:layout_marginBottom="@dimen/cbBnt_marginBottom">
 
@@ -76,41 +70,6 @@
             android:layout_height="wrap_content"
             android:text="@string/btnRegistrar" />
 
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="bottom|center"
-        android:padding="10dp"
-        android:text="@string/tvPlataformasLogin"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/linealPlataformas_marginBottom"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/imgBtnGoogle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/google"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <ImageButton
-            android:id="@+id/imgBtnFacebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/facebook"
-            tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
 </LinearLayout>

@@ -1,5 +1,7 @@
 package com.example.tostudy.ui.login;
 
+import com.example.tostudy.data.model.User;
+
 public class LoginPresenter implements LoginContract.Presenter{
 
     private LoginInteractor interactor;
@@ -11,8 +13,8 @@ public class LoginPresenter implements LoginContract.Presenter{
     }
 
     @Override
-    public void onSuccess(String msg) {
-        view.onSuccess(msg);
+    public void onSuccess(String msg, User user) {
+        view.onSuccess(msg,user);
     }
     @Override
     public void onFailure(String msg) {

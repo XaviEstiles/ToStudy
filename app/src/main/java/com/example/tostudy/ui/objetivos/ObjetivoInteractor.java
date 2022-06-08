@@ -4,7 +4,6 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.tostudy.data.Repository.ObjetivoRepository;
 import com.example.tostudy.data.Repository.ObjetivoRepositoryRoom;
 import com.example.tostudy.data.model.Objetivo;
 import com.example.tostudy.ui.base.OnRepositoryListCallBack;

@@ -1,5 +1,6 @@
 package com.example.tostudy.ui.singup;
 
+import com.example.tostudy.data.model.User;
 import com.example.tostudy.ui.base.OnRepositoryCallBack;
 
 public class SingUpPresenter implements SingUpContract.Presenter{
@@ -13,8 +14,8 @@ public class SingUpPresenter implements SingUpContract.Presenter{
     }
 
     @Override
-    public void onSuccess(String msg) {
-        view.onSuccess(msg);
+    public void onSuccess(String msg, User user) {
+        view.onSuccess(msg,user);
     }
 
     @Override

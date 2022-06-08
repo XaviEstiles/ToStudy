@@ -115,9 +115,10 @@ public class MainActivity extends AppCompatActivity{
         TextView tvNombre = ((TextView) binding.navigationView.getHeaderView(0).findViewById(R.id.tvNombre));
 
         tvEmail.setText(prefs.getString("Email","example@gmail.com"));
+        tvNombre.setText(prefs.getString("Name","example"));
 
         Glide.with(getApplicationContext())
-                .load("http://vps-9e48c221.vps.ovh.net/fotos-perfil/prueba.jpg")
+                .load(prefs.getString("Img",""))
                 .error(R.drawable.imgperfil)
                 .circleCrop()
                 .into(img);

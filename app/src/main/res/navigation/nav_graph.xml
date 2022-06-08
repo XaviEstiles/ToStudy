@@ -95,7 +95,7 @@
         android:label="BaseDialogFragment" />
     <fragment
         android:id="@+id/perfilFragment"
-        android:name="com.example.tostudy.PerfilFragment"
+        android:name="com.example.tostudy.ui.fragment.PerfilFragment"
         android:label="fragment_perfil"
         tools:layout="@layout/fragment_perfil" />
     <fragment
