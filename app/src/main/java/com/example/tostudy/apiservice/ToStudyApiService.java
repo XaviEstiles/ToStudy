@@ -1,5 +1,6 @@
 package com.example.tostudy.apiservice;
 
+import com.example.tostudy.apiservice.dto.BooleanResponse;
 import com.example.tostudy.apiservice.dto.UserResponse;
 
 import retrofit2.Call;
@@ -13,6 +14,12 @@ public interface ToStudyApiService {
     @POST("toStudy.php?controller=users&req=userInfo")
     Call<UserResponse> getUserInfo(
             @Field("email") String email
+    );
+
+    @FormUrlEncoded
+    @POST("toStudy.php?controller=users&req=insertUser")
+    Call<BooleanResponse> saveUser(
+            @Field("data") String data
     );
 
 }

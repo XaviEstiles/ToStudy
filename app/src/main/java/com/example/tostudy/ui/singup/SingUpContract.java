@@ -20,6 +20,6 @@ public interface SingUpContract {
         void onPassDontMach();
     }
     interface Presenter extends Interactor {
-        void validateCredentials(String nomUser, String email, String pass, String confirmPass);
+        void validateCredentials(String nomUser, String email, String pass, String confirmPass,String img);
     }
 }

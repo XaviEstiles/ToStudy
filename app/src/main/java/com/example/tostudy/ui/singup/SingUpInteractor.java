@@ -15,7 +15,7 @@ public class SingUpInteractor implements OnRepositoryCallBack {
         this.presenter = presenter;
     }
 
-    public void validateCredential(String nomUser, String email, String pass, String confirmPass){
+    public void validateCredential(String nomUser, String email, String pass, String confirmPass, String img){
         if(nomUser.isEmpty()){
             presenter.onNomEmpty();
             return;
@@ -40,7 +40,7 @@ public class SingUpInteractor implements OnRepositoryCallBack {
             presenter.onEmailErr();
             return;
         }
-        LoginRepositoriFirebase.getInstance(this).SingUp(email, pass);
+        LoginRepositoriFirebase.getInstance(this).SingUp(new User(nomUser,email,img), pass);
     }
 
     @Override

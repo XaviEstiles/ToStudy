@@ -54,7 +54,7 @@ public class SingUpPresenter implements SingUpContract.Presenter{
     }
 
     @Override
-    public void validateCredentials(String nomUser, String email, String pass, String confirmPass) {
-        interactor.validateCredential(nomUser, email, pass, confirmPass);
+    public void validateCredentials(String nomUser, String email, String pass, String confirmPass,String img) {
+        interactor.validateCredential(nomUser, email, pass, confirmPass, img);
     }
 }

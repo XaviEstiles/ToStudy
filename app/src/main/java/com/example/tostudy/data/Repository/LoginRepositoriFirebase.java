@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.example.tostudy.R;
 import com.example.tostudy.apiservice.ToStudyApiAdapter;
+import com.example.tostudy.apiservice.dto.BooleanResponse;
 import com.example.tostudy.apiservice.dto.UserResponse;
 import com.example.tostudy.data.model.User;
 import com.example.tostudy.ui.base.OnRepositoryCallBack;
@@ -58,12 +59,12 @@ public class LoginRepositoriFirebase implements LoginContract.Repository {
                             @Override
                             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                                 UserResponse user = response.body();
-                                interactor.onSuccess("usuario correcto", new User(user.getUser(), user.getEmail(), user.getImg()));
+                                interactor.onSuccess("usuario correcto", new User(user.getId(), user.getUser(), user.getEmail(), user.getImg()));
                             }
 
                             @Override
                             public void onFailure(Call<UserResponse> call, Throwable t) {
-                                interactor.onFailure("Error de autenticacion" + task.getException());
+                                interactor.onFailure("Error de autenticacion");
                             }
                         });
 
@@ -77,16 +78,33 @@ public class LoginRepositoriFirebase implements LoginContract.Repository {
             });
     }
 
-    public void SingUp(String email, String pass) {
-        Log.d(TAG, email);
+    public void SingUp(User user, String pass) {
+        Log.d(TAG, user.getEmail());
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(user.getEmail(), pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success");
-                    //interactor.onSuccess("usuario correcto", new User(user.getUser(), user.getEmail(), user.getImg()));
+                    Call<BooleanResponse> call =  ToStudyApiAdapter.getApiService().saveUser(
+                            "{\"email\":\""+user.getEmail()+"\",\"name\":\""+user.getUser()+"\",\"img\":\""+user.getImg()+"\"}"
+                    );
+                    call.enqueue(new Callback<BooleanResponse>() {
+                        @Override
+                        public void onResponse(Call<BooleanResponse> call, Response<BooleanResponse> response) {
+                            BooleanResponse insertado = response.body();
+                            if (insertado.getResult().equals("true"))
+                                interactor.onSuccess("usuario regidtrado", new User(user.getUser(), user.getEmail(), user.getImg()));
+                            else
+                                interactor.onFailure("Error de autenticacion");
+                        }
+
+                        @Override
+                        public void onFailure(Call<BooleanResponse> call, Throwable t) {
+                            interactor.onFailure("Error de autenticacion");
+                        }
+                    });
                 } else {
                     interactor.onFailure("Error de registro" + task.getException());
                 }
