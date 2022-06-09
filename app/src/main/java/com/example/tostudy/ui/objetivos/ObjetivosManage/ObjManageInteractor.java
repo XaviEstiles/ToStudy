@@ -23,17 +23,17 @@ public class ObjManageInteractor implements ObjManageContract.Interactor {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     void validateEventoToEdit(Objetivo objetivo){
-        if(objetivo.getNombre().isEmpty()){
+        if(objetivo.getName().isEmpty()){
             presenter.onNombreEmpty();
             return;
         }
-        if(objetivo.getFecha().isEmpty()){
+        if(objetivo.getDate().isEmpty()){
             presenter.onFechaEmpty();
             return;
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate localDate = LocalDate.parse(objetivo.getFecha(), formatter);
+        LocalDate localDate = LocalDate.parse(objetivo.getDate(), formatter);
 
         if(localDate.isBefore(LocalDate.now())){
             presenter.onFechaErr();
@@ -45,17 +45,17 @@ public class ObjManageInteractor implements ObjManageContract.Interactor {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     void validateEventoToAdd(Objetivo objetivo){
-        if(objetivo.getNombre().isEmpty()){
+        if(objetivo.getName().isEmpty()){
             presenter.onNombreEmpty();
             return;
         }
-        if(objetivo.getFecha().isEmpty()){
+        if(objetivo.getDate().isEmpty()){
             presenter.onFechaEmpty();
             return;
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate localDate = LocalDate.parse(objetivo.getFecha(), formatter);
+        LocalDate localDate = LocalDate.parse(objetivo.getDate(), formatter);
 
         if(localDate.isBefore(LocalDate.now())){
             presenter.onFechaErr();

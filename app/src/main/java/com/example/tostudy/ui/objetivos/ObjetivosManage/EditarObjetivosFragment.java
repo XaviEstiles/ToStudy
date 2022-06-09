@@ -63,10 +63,10 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
         objetivo = (Objetivo) getArguments().getSerializable("obj");
 
         if (objetivo != null){
-            binding.tilNombreObj.getEditText().setText(objetivo.getNombre());
-            binding.tilFechaObj.getEditText().setText(objetivo.getFecha());
-            binding.tilDescrObj.getEditText().setText(objetivo.getDescripcion());
-            binding.spPrioridades.setSelection(objetivo.getPrioridad().getIndice());
+            binding.tilNombreObj.getEditText().setText(objetivo.getName());
+            binding.tilFechaObj.getEditText().setText(objetivo.getDate());
+            binding.tilDescrObj.getEditText().setText(objetivo.getDescription());
+            binding.spPrioridades.setSelection(objetivo.getPriority());
             iniBtnEditar();
         }else{
             objetivo = new Objetivo();
@@ -84,21 +84,21 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             binding.btnAnadirObj.setImageDrawable(getResources().getDrawable(R.drawable.ic_edit));
             binding.btnAnadirObj.setOnClickListener(v -> {
-                objetivo.setNombre(binding.tilNombreObj.getEditText().getText().toString());
-                objetivo.setFecha(binding.tilFechaObj.getEditText().getText().toString());
-                objetivo.setDescripcion(binding.tilDescrObj.getEditText().getText().toString());
+                objetivo.setName(binding.tilNombreObj.getEditText().getText().toString());
+                objetivo.setDate(binding.tilFechaObj.getEditText().getText().toString());
+                objetivo.setDescription(binding.tilDescrObj.getEditText().getText().toString());
                 switch (binding.spPrioridades.getSelectedItem().toString()){
                     case "Baja":
-                        objetivo.setPrioridad(Prioridad.BAJA);
+                        objetivo.setPriority(0);
                         break;
                     case "Alta":
-                        objetivo.setPrioridad(Prioridad.ALTA);
+                        objetivo.setPriority(2);
                         break;
                     case "Media":
-                        objetivo.setPrioridad(Prioridad.MEDIA);
+                        objetivo.setPriority(1);
                         break;
                     default:
-                        objetivo.setPrioridad(Prioridad.BAJA);
+                        objetivo.setPriority(0);
                         break;
                 }
                 presenter.edit(objetivo);
@@ -115,21 +115,21 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
                 binding.tilNombreObj.setError(null);
                 binding.tilFechaObj.setError(null);
 
-                objetivo.setNombre(binding.tilNombreObj.getEditText().getText().toString());
-                objetivo.setFecha(binding.tilFechaObj.getEditText().getText().toString());
-                objetivo.setDescripcion(binding.tilDescrObj.getEditText().getText().toString());
+                objetivo.setName(binding.tilNombreObj.getEditText().getText().toString());
+                objetivo.setDate(binding.tilFechaObj.getEditText().getText().toString());
+                objetivo.setDescription(binding.tilDescrObj.getEditText().getText().toString());
                 switch (binding.spPrioridades.getSelectedItem().toString()){
                     case "Baja":
-                        objetivo.setPrioridad(Prioridad.BAJA);
+                        objetivo.setPriority(0);
                         break;
                     case "Alta":
-                        objetivo.setPrioridad(Prioridad.ALTA);
+                        objetivo.setPriority(2);
                         break;
                     case "Media":
-                        objetivo.setPrioridad(Prioridad.MEDIA);
+                        objetivo.setPriority(1);
                         break;
                     default:
-                        objetivo.setPrioridad(Prioridad.BAJA);
+                        objetivo.setPriority(0);
                         break;
                 }
                 presenter.add(objetivo);
@@ -145,7 +145,7 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
         JobInfo.Builder builder = new JobInfo.Builder(JOBID,componentName);
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime date = LocalDateTime.parse(objetivo.getFecha()+" 09:00",format);
+        LocalDateTime date = LocalDateTime.parse(objetivo.getDate()+" 09:00",format);
 
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(date.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()-Calendar.getInstance().getTimeInMillis());

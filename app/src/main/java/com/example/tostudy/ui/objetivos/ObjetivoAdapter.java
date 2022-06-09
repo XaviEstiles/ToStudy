@@ -42,18 +42,18 @@ public class ObjetivoAdapter extends RecyclerView.Adapter<ObjetivoAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tv.setText(list.get(position).getNombre());
-        holder.tvFecha.setText(list.get(position).getFecha());
-        holder.pro.setProgress((int)list.get(position).getProgreso());
+        holder.tv.setText(list.get(position).getName());
+        holder.tvFecha.setText(list.get(position).getDate());
+        holder.pro.setProgress((int)list.get(position).getProgress());
 
-        switch (list.get(position).getPrioridad()){
-            case BAJA:
+        switch (list.get(position).getPriority()){
+            case 1:
                 holder.pri.setImageResource(R.drawable.ic_importancia_baja);
                 break;
-            case MEDIA:
+            case 2:
                 holder.pri.setImageResource(R.drawable.ic_importancia_media);
                 break;
-            case ALTA:
+            case 3:
                 holder.pri.setImageResource(R.drawable.ic_importancia_alta);
                 break;
         }

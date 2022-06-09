@@ -9,6 +9,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.tostudy.R;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -18,44 +20,26 @@ import java.time.format.DateTimeFormatter;
 @Entity
 public class Objetivo implements Comparable, Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     Integer id;
-    @NonNull
-    String nombre;
-    @NonNull
-    String fecha;
-    @NonNull
-    String descripcion;
-    @NonNull
-    Prioridad prioridad;
-    float progreso;
+    Integer userId;
+    String name;
+    String date;
+    String description;
+    int priority;
+    float progress;
 
-
-    public Objetivo(Integer id, String nombre, String fecha, String descripcion, Prioridad prioridad, float progreso) {
+    public Objetivo(Integer id, Integer userId, String name, String date, String description, int priority, float progress) {
         this.id = id;
-        this.nombre = nombre;
-        this.fecha = fecha;
-        this.descripcion = descripcion;
-        this.prioridad = prioridad;
-        this.progreso = progreso;
+        this.userId = userId;
+        this.name = name;
+        this.date = date;
+        this.description = description;
+        this.priority =priority;
+        this.progress = progress;
     }
 
-    public float getProgreso() {
-        return progreso;
-    }
-
-    public void setProgreso(float progreso) {
-        this.progreso = progreso;
-    }
-
-    public Objetivo() { }
-
-    public Prioridad getPrioridad() {
-        return prioridad;
-    }
-
-    public void setPrioridad(Prioridad prioridad) {
-        this.prioridad = prioridad;
+    public Objetivo() {
     }
 
     public Integer getId() {
@@ -66,28 +50,52 @@ public class Objetivo implements Comparable, Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getFecha() {
-        return fecha;
+    public String getName() {
+        return name;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDate() {
+        return date;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public float getProgress() {
+        return progress;
+    }
+
+    public void setProgress(float progress) {
+        this.progress = progress;
     }
 
     @Override
@@ -102,9 +110,9 @@ public class Objetivo implements Comparable, Serializable {
     @Override
     public int compareTo(Object o) {
         int result = 0;// new OjetivoComparator().compare(this,o);
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate date1 = LocalDate.parse(this.getFecha(),format);
-        LocalDate date2 = LocalDate.parse(((Objetivo)o).getFecha(),format);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date1 = LocalDate.parse(this.getDate(),format);
+        LocalDate date2 = LocalDate.parse(((Objetivo)o).getDate(),format);
 
         if(date1.isBefore(date2)){
             result = -1;

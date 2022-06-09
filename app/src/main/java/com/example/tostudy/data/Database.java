@@ -4,10 +4,8 @@ import android.content.Context;
 
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverter;
 
 import com.example.tostudy.data.dao.EventoDao;
-import com.example.tostudy.data.dao.ObjetivoDao;
 import com.example.tostudy.data.model.Evento;
 import com.example.tostudy.data.model.Objetivo;
 
@@ -18,7 +16,6 @@ import java.util.concurrent.Executors;
 public abstract class Database extends RoomDatabase {
 
     //Crear los metodos de obtencion de los dao
-    public abstract ObjetivoDao objetivoDao();
     public abstract EventoDao eventoDao();
 
     private static volatile Database INSTANCE;

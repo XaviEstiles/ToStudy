@@ -40,20 +40,20 @@ public class InfoObjetivosFragment extends ObjetivosFragment {
         toolbar.setTitle("ToStudy");
         toolbar.setVisibility(View.VISIBLE);
 
-        binding.tvNombre.setText(objetivo.getNombre());
-        binding.tvDescripcion.setText(objetivo.getDescripcion());
-        binding.tvFecha.setText(objetivo.getFecha());
-        binding.seekBar2.setProgress((int)objetivo.getProgreso());
+        binding.tvNombre.setText(objetivo.getName());
+        binding.tvDescripcion.setText(objetivo.getDescription());
+        binding.tvFecha.setText(objetivo.getDate());
+        binding.seekBar2.setProgress((int)objetivo.getProgress());
         binding.tvProgreso.setText(binding.seekBar2.getProgress() + "%");
 
-        switch (objetivo.getPrioridad()){
-            case BAJA:
+        switch (objetivo.getPriority()){
+            case 1:
                 binding.imgPrioridad.setImageResource(R.drawable.ic_importancia_baja);
                 break;
-            case MEDIA:
+            case 2:
                 binding.imgPrioridad.setImageResource(R.drawable.ic_importancia_media);
                 break;
-            case ALTA:
+            case 3:
                 binding.imgPrioridad.setImageResource(R.drawable.ic_importancia_alta);
                 break;
         }
@@ -63,7 +63,7 @@ public class InfoObjetivosFragment extends ObjetivosFragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 int pro = seekBar.getProgress();
-                objetivo.setProgreso(pro);
+                objetivo.setProgress(pro);
                 presenter.editProgres(objetivo);
             }
 

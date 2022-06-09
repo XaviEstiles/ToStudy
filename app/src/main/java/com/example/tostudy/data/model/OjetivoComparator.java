@@ -14,9 +14,9 @@ public class OjetivoComparator implements Comparator {
     public int compare(Object o1, Object o2) {
         int result =  0;//((Objetivo)o1).compareTo(o2);
 
-        if(((Objetivo)o1).getPrioridad().getIndice() < ((Objetivo)o2).getPrioridad().getIndice()){
+        if(((Objetivo)o1).getPriority() < ((Objetivo)o2).getPriority()){
             result = 1;
-        }else if(((Objetivo)o1).getPrioridad().getIndice() > ((Objetivo)o2).getPrioridad().getIndice()){
+        }else if(((Objetivo)o1).getPriority() > ((Objetivo)o2).getPriority()){
             result = -1;
         }
         return result;

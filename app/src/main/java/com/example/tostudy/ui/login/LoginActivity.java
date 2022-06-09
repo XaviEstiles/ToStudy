@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void onSuccess(String msg, User user) {
+        prefs.edit().putString("IdUser", String.valueOf(user.getId())).apply();
         prefs.edit().putString("Email", user.getEmail()).apply();
         prefs.edit().putString("Name",user.getUser()).apply();
         prefs.edit().putString("Img",user.getImg()).apply();
