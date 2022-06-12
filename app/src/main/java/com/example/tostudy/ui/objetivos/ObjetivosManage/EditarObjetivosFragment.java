@@ -68,7 +68,7 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
             binding.tilNombreObj.getEditText().setText(objetivo.getName());
             binding.tilFechaObj.getEditText().setText(objetivo.getDate());
             binding.tilDescrObj.getEditText().setText(objetivo.getDescription());
-            binding.spPrioridades.setSelection(objetivo.getPriority());
+            binding.spPrioridades.setSelection(objetivo.getPriority()-1);
             iniBtnEditar();
         }else{
             objetivo = new Objetivo();
@@ -196,17 +196,17 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
     }
 
     @Override
-    public void setNombreEmpty() {
+    public void setNameEmpty() {
         binding.tilNombreObj.setError("EL nombre no puede estar vacio");
     }
 
     @Override
-    public void setFechaEmpty() {
+    public void setDateEmpty() {
         binding.tilFechaObj.setError("La fecha no puede estar vacia");
     }
 
     @Override
-    public void setFechaErr() {
+    public void setDateErr() {
         binding.tilFechaObj.setError("La fecha no puede ser menor que la fecha actual");
     }
 }

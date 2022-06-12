@@ -132,7 +132,7 @@ public class ObjetivosFragment extends Fragment implements ObjetivoAdapter.OnMan
             //dialogo para eliminarlo
             Bundle bundle = new Bundle();
             bundle.putString(BaseDialogFragment.TITLE,"Objetivo Completado");
-            bundle.putString(BaseDialogFragment.MESSAGE,"El objetivo "+objetivo.getNombre()+" ha sido cumplido. ¿Desea eliminarlo?");
+            bundle.putString(BaseDialogFragment.MESSAGE,"El objetivo "+objetivo.getName()+" ha sido cumplido. ¿Desea eliminarlo?");
             getActivity().getSupportFragmentManager().setFragmentResultListener(BaseDialogFragment.KEY, this, new FragmentResultListener() {
                 @Override
                 public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {

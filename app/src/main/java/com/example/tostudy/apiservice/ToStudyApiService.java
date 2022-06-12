@@ -1,6 +1,7 @@
 package com.example.tostudy.apiservice;
 
 import com.example.tostudy.apiservice.dto.BooleanResponse;
+import com.example.tostudy.apiservice.dto.EventoResponse;
 import com.example.tostudy.apiservice.dto.ObjetivoResponse;
 import com.example.tostudy.apiservice.dto.UserResponse;
 import com.example.tostudy.data.model.Objetivo;
@@ -51,24 +52,27 @@ public interface ToStudyApiService {
             @Field("data") String data
     );
 
-    @GET("toStudy.php?controller=objectives&req=allObjectives")
-    Call<ObjetivoResponse> getEvens(
-            @Query("id") String data
+    @FormUrlEncoded
+    @POST("toStudy.php?controller=events&req=allEvents")
+    Call<EventoResponse> getEvens(
+            @Query("id") String data,
+            @Field("date") String date,
+            @Query("mode") String mode
     );
 
     @FormUrlEncoded
-    @POST("toStudy.php?controller=objectives&req=insertObjectives")
+    @POST("toStudy.php?controller=events&req=allObjectives")
     Call<BooleanResponse> saveEvens(
             @Field("data") String data
     );
 
-    @GET("toStudy.php?controller=objectives&req=deleteObjectives")
+    @GET("toStudy.php?controller=events&req=deleteObjectives")
     Call<BooleanResponse> deleteEvense(
             @Query("id") String data
     );
 
     @FormUrlEncoded
-    @POST("toStudy.php?controller=objectives&req=updateObjectives")
+    @POST("toStudy.php?controller=events&req=updateObjectives")
     Call<BooleanResponse> editEvens(
             @Field("data") String data
     );

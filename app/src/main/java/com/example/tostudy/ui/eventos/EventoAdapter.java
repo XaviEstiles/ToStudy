@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tostudy.R;
 import com.example.tostudy.data.model.EventComparator;
 import com.example.tostudy.data.model.Evento;
-import com.example.tostudy.data.model.OjetivoComparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,19 +40,19 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull EventoAdapter.ViewHolder holder, int position) {
-        holder.tvNombre.setText(list.get(position).getNombre());
-        holder.tvFecha.setText(list.get(position).getFecha());
-        holder.tvHoraIni.setText(list.get(position).getHoraIni());
-        holder.tvHoraFin.setText(list.get(position).getHoraFin());
+        holder.tvNombre.setText(list.get(position).getName());
+        holder.tvFecha.setText(list.get(position).getDate());
+        holder.tvHoraIni.setText(list.get(position).getStartTime());
+        holder.tvHoraFin.setText(list.get(position).getFinishTime());
 
-        switch (list.get(position).getPrioridad()){
-            case BAJA:
+        switch (list.get(position).getPriority()){
+            case 1:
                 holder.p.setImageResource(R.drawable.ic_importancia_baja);
                 break;
-            case MEDIA:
+            case 2:
                 holder.p.setImageResource(R.drawable.ic_importancia_media);
                 break;
-            case ALTA:
+            case 3:
                 holder.p.setImageResource(R.drawable.ic_importancia_alta);
                 break;
         }

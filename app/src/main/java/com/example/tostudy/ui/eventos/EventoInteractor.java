@@ -19,13 +19,13 @@ public class EventoInteractor implements OnRepositoryListCallBack {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void load(){
-        EventoRepositoryRoom.getInstance(this).load();
+    public void load(String userId){
+        EventoRepositoryRoom.getInstance(this).load(userId);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void load(String fecha){
-        EventoRepositoryRoom.getInstance(this).load(fecha);
+    public void load(String fecha, String userId){
+        EventoRepositoryRoom.getInstance(this).load(fecha, userId);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

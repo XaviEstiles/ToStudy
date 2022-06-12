@@ -12,7 +12,6 @@ import android.os.Build;
 
 import com.example.tostudy.broadcastreciver.TemporizadorEveBroadcastReceiver;
 import com.example.tostudy.broadcastreciver.TemporizadorObjBroadcastReceiver;
-import com.example.tostudy.data.Database;
 
 public class ToStudyApplication extends Application {
     public static final String IDCHANNEL = "345767";
@@ -26,7 +25,7 @@ public class ToStudyApplication extends Application {
         uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
         uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
 
-        Database.create(this);
+        //Database.create(this);
         createNotificationChannel();
         prefs = this.getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
 

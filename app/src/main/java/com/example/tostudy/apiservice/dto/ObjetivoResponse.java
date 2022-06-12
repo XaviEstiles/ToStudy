@@ -1,22 +1,8 @@
 package com.example.tostudy.apiservice.dto;
 
-import android.os.Build;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 import com.example.tostudy.data.model.Objetivo;
-import com.example.tostudy.data.model.Prioridad;
-
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-@Entity
 public class ObjetivoResponse {
 
     private ArrayList<Objetivo> result;

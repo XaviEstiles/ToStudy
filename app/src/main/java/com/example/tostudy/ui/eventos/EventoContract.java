@@ -12,15 +12,15 @@ public interface EventoContract {
         void showNoData();
     }
     interface Presenter extends OnRepositoryListCallBack {
-        void load();
-        void load(String fecha);
+        void load(String userId);
+        void load(String fecha,String userId);
         void undo(Evento evento);
         void delete(Evento evento);
         void order();
     }
     interface Repository{
-        void load();
-        void load(String fecha);
+        void load(String userId);
+        void load(String userId,String fecha);
         void delete(Evento evento);
         void undo(Evento evento);
     }

@@ -99,12 +99,13 @@ public class EventosRecientesFragment extends Fragment implements EventoAdapter.
     @Override
     public void onStart() {
         super.onStart();
-        presenter.load();
+        pref = getActivity().getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
+        presenter.load(pref.getString("IdUser", "1"));
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("ToStudy");
         toolbar.setVisibility(View.VISIBLE);
 
-        pref = getActivity().getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
+
         if (pref.getString("OrdenarEve","").equals("Fecha")){
             adapter.orderByFecha();
         }else {

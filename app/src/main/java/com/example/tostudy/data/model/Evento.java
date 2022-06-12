@@ -11,68 +11,33 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-@Entity
 public class Evento implements Comparable, Serializable {
 
-    @PrimaryKey(autoGenerate = true)
     Integer id;
-    @NonNull
-    String nombre;
-    @NonNull
-    String horaIni;
-    @NonNull
-    String horaFin;
-    String fecha;
-    String descripcion;
-    Prioridad prioridad;
+    String startTime;
+    String finishTime;
+    Integer userId;
+    String name;
+    String date;
+    String description;
+    int priority;
+    float progress;
 
     @Ignore
     public Evento(){}
-    @Ignore
-    public Evento(Integer id, @NonNull String nombre, String descripcion, Prioridad prioridad) {
+
+    public Evento(Integer id, String startTime, String finishTime, Integer userId, String name, String date, String description, int priority, float progress) {
         this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.prioridad = prioridad;
-    }
-
-
-    public Evento(Integer id, @NonNull String nombre, String horaIni, String horaFin, String fecha, String descripcion,@NonNull Prioridad prioridad) {
-        this.id = id;
-        this.nombre = nombre;
-        this.horaIni = horaIni;
-        this.horaFin = horaFin;
-        this.fecha = fecha;
-        this.descripcion = descripcion;
-        this.prioridad = prioridad;
-    }
-
-    public String getHoraIni() {
-        return horaIni;
-    }
-
-    public void setHoraIni(String horaIni) {
-        this.horaIni = horaIni;
-    }
-
-    public String getHoraFin() {
-        return horaFin;
-    }
-
-    public void setHoraFin(String horaFin) {
-        this.horaFin = horaFin;
-    }
-
-    public Prioridad getPrioridad() {
-        return prioridad;
-    }
-
-    public void setPrioridad(Prioridad prioridad) {
-        this.prioridad = prioridad;
+        this.startTime = startTime;
+        this.finishTime = finishTime;
+        this.userId = userId;
+        this.name = name;
+        this.date = date;
+        this.description = description;
+        this.priority = priority;
+        this.progress = progress;
     }
 
     public Integer getId() {
@@ -83,28 +48,60 @@ public class Evento implements Comparable, Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public String getFecha() {
-        return fecha;
+    public String getFinishTime() {
+        return finishTime;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     @Override
@@ -119,9 +116,9 @@ public class Evento implements Comparable, Serializable {
     @Override
     public int compareTo(Object o) {
         int result = 0;//new EventComparator().compare(this,o);
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate date1 = LocalDate.parse(this.getFecha(),format);
-        LocalDate date2 = LocalDate.parse(((Evento)o).getFecha(),format);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date1 = LocalDate.parse(this.getDate(),format);
+        LocalDate date2 = LocalDate.parse(((Evento)o).getDate(),format);
 
         if(date1.isBefore(date2)){
             result = -1;

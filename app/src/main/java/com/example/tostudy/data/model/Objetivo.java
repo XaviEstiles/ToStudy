@@ -17,10 +17,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-@Entity
 public class Objetivo implements Comparable, Serializable {
 
-    @PrimaryKey
     Integer id;
     Integer userId;
     String name;

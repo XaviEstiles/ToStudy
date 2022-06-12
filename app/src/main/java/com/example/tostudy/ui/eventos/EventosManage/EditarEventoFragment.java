@@ -1,26 +1,19 @@
 package com.example.tostudy.ui.eventos.EventosManage;
 
 import android.app.DatePickerDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.activity.OnBackPressedDispatcher;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDeepLinkBuilder;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -31,25 +24,17 @@ import android.widget.Toast;
 
 
 import com.example.tostudy.R;
-import com.example.tostudy.ToStudyApplication;
 import com.example.tostudy.broadcastreciver.TemporizadorServiceEve;
-import com.example.tostudy.broadcastreciver.TemporizadorServiceObj;
 import com.example.tostudy.data.model.Evento;
-import com.example.tostudy.data.model.Objetivo;
 import com.example.tostudy.data.model.Prioridad;
 import com.example.tostudy.databinding.FragmentEditarEventoBinding;
 import com.example.tostudy.ui.main.MainActivity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Period;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 
 public class EditarEventoFragment extends Fragment implements MainActivity.OnBackPressedListener, EveManageContract.View {
 
@@ -58,6 +43,7 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
     Evento evento;
     NavController navController;
     EveManageContract.Presenter presenter;
+    SharedPreferences prefs;
 
     final Calendar calendario = Calendar.getInstance();
     int anio = calendario.get(Calendar.YEAR);
@@ -73,6 +59,7 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
         ((MainActivity)getActivity()).setOnBackPressedListener(this);
         binding = FragmentEditarEventoBinding.inflate(getLayoutInflater());
         presenter = new EveManagePresenter(this);
+        prefs = getActivity().getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
 
     }
 
@@ -91,18 +78,18 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
 
         evento = (Evento) getArguments().getSerializable("eve");
         if (evento != null){
-            binding.textInputLayout1.getEditText().setText(evento.getNombre());
-            binding.textInputLayout2.getEditText().setText(evento.getHoraIni());
-            binding.textInputLayout3.getEditText().setText(evento.getHoraFin());
-            binding.textInputLayout4.getEditText().setText(evento.getFecha());
-            binding.textInputLayout5.getEditText().setText(evento.getDescripcion());
-            binding.spPrioridades.setSelection(evento.getPrioridad().getIndice());
+            binding.textInputLayout1.getEditText().setText(evento.getName());
+            binding.textInputLayout2.getEditText().setText(evento.getStartTime());
+            binding.textInputLayout3.getEditText().setText(evento.getFinishTime());
+            binding.textInputLayout4.getEditText().setText(evento.getDate());
+            binding.textInputLayout5.getEditText().setText(evento.getDescription());
+            binding.spPrioridades.setSelection(evento.getPriority()-1);
             iniBtnEditar();
         }else{
             evento = new Evento();
-            binding.textInputLayout2.getEditText().setText(String.format("%02d", hora) + ":" + String.format("%02d", min));
-            binding.textInputLayout3.getEditText().setText(String.format("%02d", hora+1) + ":" + String.format("%02d", min));
-            binding.textInputLayout4.getEditText().setText(String.format("%02d", diaDelMes) + "/" + String.format("%02d", (mes+1)) + "/" + String.format("%04d", anio));
+            binding.textInputLayout2.getEditText().setText(String.format("%02d:%02d", hora, min));
+            binding.textInputLayout3.getEditText().setText(String.format("%02d:%02d", hora+1, min));
+            binding.textInputLayout4.getEditText().setText(String.format("%04d-%02d-%02d", anio, mes+1, diaDelMes));
             iniBtnAdd();
         }
         binding.imgDataPicker.setOnClickListener(v-> showDatePickerDialog());
@@ -111,7 +98,6 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
         binding.linearLayout4.setOnClickListener(v -> showDatePickerDialog());
         binding.textInputLayout2.setOnClickListener(v -> showTimePickerDialog(0));
         binding.textInputLayout3.setOnClickListener(v -> showTimePickerDialog(1));
-
 
         return binding.getRoot();
     }
@@ -127,23 +113,23 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
                 binding.textInputLayout4.setError(null);
                 binding.textInputLayout5.setError(null);
 
-                evento.setNombre(binding.textInputLayout1.getEditText().getText().toString());
-                evento.setHoraIni(binding.textInputLayout2.getEditText().getText().toString());
-                evento.setHoraFin(binding.textInputLayout3.getEditText().getText().toString());
-                evento.setFecha(binding.textInputLayout4.getEditText().getText().toString());
-                evento.setDescripcion(binding.textInputLayout5.getEditText().getText().toString());
+                evento.setName(binding.textInputLayout1.getEditText().getText().toString());
+                evento.setStartTime(binding.textInputLayout2.getEditText().getText().toString());
+                evento.setFinishTime(binding.textInputLayout3.getEditText().getText().toString());
+                evento.setDate(binding.textInputLayout4.getEditText().getText().toString());
+                evento.setDescription(binding.textInputLayout5.getEditText().getText().toString());
                 switch (binding.spPrioridades.getSelectedItem().toString()){
                     case "Baja":
-                        evento.setPrioridad(Prioridad.BAJA);
+                        evento.setPriority(1);
                         break;
                     case "Alta":
-                        evento.setPrioridad(Prioridad.ALTA);
+                        evento.setPriority(3);
                         break;
                     case "Media":
-                        evento.setPrioridad(Prioridad.MEDIA);
+                        evento.setPriority(2);
                         break;
                     default:
-                        evento.setPrioridad(Prioridad.BAJA);
+                        evento.setPriority(1);
                         break;
                 }
                 presenter.edit(evento);
@@ -168,23 +154,24 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
                 binding.textInputLayout4.setError(null);
                 binding.textInputLayout5.setError(null);
 
-                evento.setNombre(binding.textInputLayout1.getEditText().getText().toString());
-                evento.setHoraIni(binding.textInputLayout2.getEditText().getText().toString());
-                evento.setHoraFin(binding.textInputLayout3.getEditText().getText().toString());
-                evento.setFecha(binding.textInputLayout4.getEditText().getText().toString());
-                evento.setDescripcion(binding.textInputLayout5.getEditText().getText().toString());
+                evento.setName(binding.textInputLayout1.getEditText().getText().toString());
+                evento.setUserId(Integer.parseInt(prefs.getString("IdUser", "1")));
+                evento.setStartTime(binding.textInputLayout2.getEditText().getText().toString());
+                evento.setFinishTime(binding.textInputLayout3.getEditText().getText().toString());
+                evento.setDate(binding.textInputLayout4.getEditText().getText().toString());
+                evento.setDescription(binding.textInputLayout5.getEditText().getText().toString());
                 switch (binding.spPrioridades.getSelectedItem().toString()){
                     case "Baja":
-                        evento.setPrioridad(Prioridad.BAJA);
+                        evento.setPriority(1);
                         break;
                     case "Alta":
-                        evento.setPrioridad(Prioridad.ALTA);
+                        evento.setPriority(3);
                         break;
                     case "Media":
-                        evento.setPrioridad(Prioridad.MEDIA);
+                        evento.setPriority(2);
                         break;
                     default:
-                        evento.setPrioridad(Prioridad.BAJA);
+                        evento.setPriority(1);
                         break;
                 }
                 iniJob();
@@ -198,8 +185,8 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
         ComponentName componentName = new ComponentName(getActivity(), TemporizadorServiceEve.class);
         JobInfo.Builder builder = new JobInfo.Builder(JOBID,componentName);
 
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime date = LocalDateTime.parse(evento.getFecha()+" "+evento.getHoraIni(),format).minusDays(1);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(evento.getDate()+" "+evento.getStartTime(),format).minusDays(1);
         Log.d("Fecha", date.toString());
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(date.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()-Calendar.getInstance().getTimeInMillis());
@@ -225,11 +212,11 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
         dialogoTime.show();
     }
     private TimePickerDialog.OnTimeSetListener listenerDeTimePickerIni = (view, hora, min) -> {
-        final String selectedDate = String.format("%02d", hora) + ":" + String.format("%02d", min);
+        final String selectedDate = String.format("%02d:%02d", hora, min);
         binding.tvHoraIni.setText(selectedDate);
     };
     private TimePickerDialog.OnTimeSetListener listenerDeTimePickerFin = (view, hora, min) -> {
-        final String selectedDate = String.format("%02d", hora) + ":" + String.format("%02d", min);
+        final String selectedDate = String.format("%02d:%02d", hora, min);
         binding.tvHoraFin.setText(selectedDate);
     };
 
@@ -238,7 +225,7 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
         dialogoFecha.show();
     }
     private DatePickerDialog.OnDateSetListener listenerDeDatePicker = (view, anio, mes, diaDelMes) -> {
-        final String selectedDate = String.format("%02d", diaDelMes) + "/" + String.format("%02d", (mes+1)) + "/" + String.format("%04d", anio);
+        final String selectedDate = String.format("%04d-%02d-%02d", anio, mes+1, diaDelMes);
         binding.tvFecha.setText(selectedDate);
     };
 
@@ -269,7 +256,7 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
     }
 
     @Override
-    public void setNombreEmpty() {
+    public void setNameEmpty() {
         binding.textInputLayout1.setError("El nombre no puede estar vacio");
     }
 
@@ -285,7 +272,7 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
     }
 
     @Override
-    public void setFechaEmpty() {
+    public void setDateEmpty() {
         binding.textInputLayout4.setError("La fecha no puede estar vacia");
     }
 
@@ -295,7 +282,7 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
     }
 
     @Override
-    public void setFechaErr() {
+    public void setDateErr() {
         binding.textInputLayout4.setError("La fecha no puede ser menor que la fecha actual");
     }
 }

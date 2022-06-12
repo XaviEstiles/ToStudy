@@ -6,9 +6,9 @@ import com.example.tostudy.ui.base.OnRepositoryListCallBack;
 public interface ObjManageContract {
 
     interface View extends OnRepositoryListCallBack {
-        void setNombreEmpty();
-        void setFechaEmpty();
-        void setFechaErr();
+        void setNameEmpty();
+        void setDateEmpty();
+        void setDateErr();
     }
 
     interface Presenter extends OnRepositoryListCallBack{

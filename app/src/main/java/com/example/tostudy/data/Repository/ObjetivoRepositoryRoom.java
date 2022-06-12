@@ -8,7 +8,6 @@ import com.example.tostudy.apiservice.ToStudyApiAdapter;
 import com.example.tostudy.apiservice.dto.BooleanResponse;
 import com.example.tostudy.apiservice.dto.ObjetivoResponse;
 import com.example.tostudy.data.model.Objetivo;
-import com.example.tostudy.data.model.User;
 import com.example.tostudy.ui.base.OnRepositoryListCallBack;
 import com.example.tostudy.ui.objetivos.ObjetivosManage.ObjManageContract;
 import com.example.tostudy.ui.objetivos.ObjetivoContract;
@@ -27,7 +26,6 @@ public class ObjetivoRepositoryRoom implements ObjetivoContract.Repository, ObjM
     @RequiresApi(api = Build.VERSION_CODES.O)
     private ObjetivoRepositoryRoom() {
         objetivos = new ArrayList<>();
-        //objetivoDao = Database.getDatabase().objetivoDao();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

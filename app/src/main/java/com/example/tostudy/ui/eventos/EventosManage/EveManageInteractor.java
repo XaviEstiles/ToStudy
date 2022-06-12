@@ -22,34 +22,34 @@ public class EveManageInteractor implements EveManageContract.Interactor {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     void validateEventoToAdd(Evento evento){
-        if(evento.getNombre().isEmpty()){
+        if(evento.getName().isEmpty()){
             presenter.onNombreEmpty();
             return;
         }
-        if(evento.getHoraIni().isEmpty()){
+        if(evento.getStartTime().isEmpty()){
             presenter.onHoraIniEmpty();
             return;
         }
-        if(evento.getHoraFin().isEmpty()){
+        if(evento.getFinishTime().isEmpty()){
             presenter.onHoraFinEmpty();
             return;
         }
-        if(evento.getFecha().isEmpty()){
+        if(evento.getDate().isEmpty()){
             presenter.onFechaEmpty();
             return;
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("kk:mm");
-        LocalTime horaIni = LocalTime.parse(evento.getHoraIni(),formatter);
-        LocalTime horaFin = LocalTime.parse(evento.getHoraFin(),formatter);
+        LocalTime horaIni = LocalTime.parse(evento.getStartTime(),formatter);
+        LocalTime horaFin = LocalTime.parse(evento.getFinishTime(),formatter);
 
         if(horaFin.isBefore(horaIni)){
             presenter.onHoraFinErr();
             return;
         }
 
-        formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //replace yyyy-MM-dd
-        LocalDate localDate = LocalDate.parse(evento.getFecha(), formatter);
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //replace yyyy-MM-dd
+        LocalDate localDate = LocalDate.parse(evento.getDate(), formatter);
 
         if(localDate.isBefore(LocalDate.now())){
             presenter.onFechaErr();
@@ -61,34 +61,34 @@ public class EveManageInteractor implements EveManageContract.Interactor {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     void validateEventoToEdit(Evento evento){
-        if(evento.getNombre().isEmpty()){
+        if(evento.getName().isEmpty()){
             presenter.onNombreEmpty();
             return;
         }
-        if(evento.getHoraIni().isEmpty()){
+        if(evento.getStartTime().isEmpty()){
             presenter.onHoraIniEmpty();
             return;
         }
-        if(evento.getHoraFin().isEmpty()){
+        if(evento.getFinishTime().isEmpty()){
             presenter.onHoraFinEmpty();
             return;
         }
-        if(evento.getFecha().isEmpty()){
+        if(evento.getDate().isEmpty()){
             presenter.onFechaEmpty();
             return;
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("kk:mm");
-        LocalTime horaIni = LocalTime.parse(evento.getHoraIni(),formatter);
-        LocalTime horaFin = LocalTime.parse(evento.getHoraFin(),formatter);
+        LocalTime horaIni = LocalTime.parse(evento.getStartTime(),formatter);
+        LocalTime horaFin = LocalTime.parse(evento.getFinishTime(),formatter);
 
         if(horaFin.isBefore(horaIni)){
             presenter.onHoraFinErr();
             return;
         }
 
-        formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate localDate = LocalDate.parse(evento.getFecha(), formatter);
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(evento.getDate(), formatter);
 
         if(localDate.isBefore(LocalDate.now())){
             presenter.onFechaErr();

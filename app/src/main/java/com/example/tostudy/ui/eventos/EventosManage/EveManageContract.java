@@ -7,12 +7,12 @@ import com.example.tostudy.ui.base.OnRepositoryListCallBack;
 public interface EveManageContract {
 
     interface View extends OnRepositoryListCallBack {
-        void setNombreEmpty();
+        void setNameEmpty();
         void setHoraIniEmpty();
         void setHoraFinEmpty();
-        void setFechaEmpty();
+        void setDateEmpty();
         void setHoraFinErr();
-        void setFechaErr();
+        void setDateErr();
     }
 
     interface Presenter extends OnRepositoryListCallBack{

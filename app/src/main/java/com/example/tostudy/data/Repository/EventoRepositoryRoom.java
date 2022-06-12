@@ -4,27 +4,31 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.tostudy.data.Database;
-import com.example.tostudy.data.dao.EventoDao;
+import com.example.tostudy.apiservice.ToStudyApiAdapter;
+import com.example.tostudy.apiservice.dto.EventoResponse;
+import com.example.tostudy.apiservice.dto.ObjetivoResponse;
 import com.example.tostudy.data.model.Evento;
 import com.example.tostudy.ui.eventos.EventoContract;
 import com.example.tostudy.ui.eventos.EventoInteractor;
 import com.example.tostudy.ui.eventos.EventosManage.EveManageContract;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EventoRepositoryRoom implements EventoContract.Repository, EveManageContract.Repository {
     ArrayList<Evento> eventos;
     EventoInteractor interactor;
     EveManageContract.Interactor interactorM;
     static EventoRepositoryRoom repository;
-    private EventoDao eventoDao;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private EventoRepositoryRoom() {
         eventos = new ArrayList<>();
-        eventoDao = Database.getDatabase().eventoDao();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -46,50 +50,62 @@ public class EventoRepositoryRoom implements EventoContract.Repository, EveManag
     }
 
     @Override
-    public void load() {
-        try {
-            eventos = (ArrayList<Evento>)Database.databaseWriteExecutor.submit(()->eventoDao.select()).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        interactor.onSuccessLoad(eventos);
+    public void load(String userId) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Call<EventoResponse> call = ToStudyApiAdapter.getApiService().getEvens("1","2022-06-01","nearlyEvents");//formatter.format(new Date()));
+        call.enqueue(new Callback<EventoResponse>() {
+
+            @Override
+            public void onResponse(Call<EventoResponse> call, Response<EventoResponse> response) {
+                eventos = response.body().getResult();
+                interactor.onSuccessLoad(eventos);
+            }
+
+            @Override
+            public void onFailure(Call<EventoResponse> call, Throwable t) {
+                interactor.onFailure("Error al cargar");
+            }
+        });
     }
 
     @Override
-    public void load(String fecha) {
-        try {
-            eventos = (ArrayList<Evento>)Database.databaseWriteExecutor.submit(()->eventoDao.selectFromDate(fecha)).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        interactor.onSuccessLoad(eventos);
+    public void load(String fecha, String userId) {
+        Call<EventoResponse> call = ToStudyApiAdapter.getApiService().getEvens("1",fecha,"");
+        call.enqueue(new Callback<EventoResponse>() {
+
+            @Override
+            public void onResponse(Call<EventoResponse> call, Response<EventoResponse> response) {
+
+                eventos = response.body().getResult();
+                interactor.onSuccessLoad(eventos);
+            }
+
+            @Override
+            public void onFailure(Call<EventoResponse> call, Throwable t) {
+                interactor.onFailure("Error al cargar");
+                eventos.clear();
+                interactor.onSuccessLoad(eventos);
+            }
+        });
     }
 
     @Override
     public void delete(Evento evento) {
-        Database.databaseWriteExecutor.submit(()->eventoDao.delete(evento));
-        interactor.onDeleteSuccess(evento.getNombre()+" eliminado.");
+        interactor.onDeleteSuccess(evento.getName()+" eliminado.");
     }
 
     @Override
     public void undo(Evento evento) {
-        Database.databaseWriteExecutor.submit(()->eventoDao.insert(evento));
         interactor.onSuccess("Elemento recuperado");
     }
 
     @Override
     public void add(Evento evento) {
-        Database.databaseWriteExecutor.submit(()->eventoDao.insert(evento));
         interactorM.onSuccess("Elemento añadido");
     }
 
     @Override
     public void edit(Evento evento) {
-        Database.databaseWriteExecutor.submit(()->eventoDao.update(evento));
         interactor.onSuccess("Elemento editado");
     }
 }

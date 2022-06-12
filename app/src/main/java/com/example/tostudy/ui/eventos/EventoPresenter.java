@@ -39,13 +39,14 @@ public class EventoPresenter implements EventoContract.Presenter{
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void load() {
-        interactor.load();
+    public void load(String userId) {
+        interactor.load(userId);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void load(String fecha) {
-        interactor.load(fecha);
+    public void load(String fecha, String userId) {
+        interactor.load(fecha, userId);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

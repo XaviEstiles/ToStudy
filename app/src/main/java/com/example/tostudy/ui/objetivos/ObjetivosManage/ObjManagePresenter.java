@@ -51,16 +51,16 @@ public class ObjManagePresenter implements ObjManageContract.Presenter{
 
     @Override
     public void onNombreEmpty() {
-        view.setNombreEmpty();
+        view.setNameEmpty();
     }
 
     @Override
     public void onFechaEmpty() {
-        view.setFechaEmpty();
+        view.setDateEmpty();
     }
 
     @Override
     public void onFechaErr() {
-        view.setFechaErr();
+        view.setDateErr();
     }
 }

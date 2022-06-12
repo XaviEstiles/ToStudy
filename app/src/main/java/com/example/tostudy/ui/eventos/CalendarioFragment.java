@@ -1,6 +1,8 @@
 package com.example.tostudy.ui.eventos;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -42,11 +44,12 @@ public class CalendarioFragment extends Fragment implements EventoContract.View,
     private EventoAdapter adapter;
     String dateString;
     Evento deleted;
+    SharedPreferences prefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        prefs = getActivity().getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
         presenter = new EventoPresenter(this);
         binding = FragmentCalendarioBinding.inflate(getLayoutInflater());
     }
@@ -58,10 +61,17 @@ public class CalendarioFragment extends Fragment implements EventoContract.View,
         toolbar.setTitle("ToStudy");
         toolbar.setVisibility(View.VISIBLE);
         binding.calendarView.setOnDateChangeListener((calendarView, i, i1, i2) -> {
-            dateString = String.format("%02d", i2)+"/"+String.format("%02d", (i1+1))+"/"+String.format("%04d", i);
-            presenter.load(dateString);
+            dateString = String.format("%04d-%02d-%02d", i, (i1+1), i2);
+            prefs.edit().putString("SelectedDate", dateString).apply();
+            presenter.load(dateString, prefs.getString("IdUser", "1"));
         });
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        prefs.edit().remove("SelectedDate").apply();
     }
 
     @Override
@@ -69,9 +79,9 @@ public class CalendarioFragment extends Fragment implements EventoContract.View,
         super.onViewCreated(view, savedInstanceState);
         initRvEventos();
         navController = Navigation.findNavController(binding.getRoot());
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        dateString = formatter.format(new Date(binding.calendarView.getDate()));
-        presenter.load(dateString);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        dateString = prefs.getString("SelectedDate", formatter.format(new Date(binding.calendarView.getDate())));
+        presenter.load(dateString,prefs.getString("IdUser", "1"));
 
     }
 
