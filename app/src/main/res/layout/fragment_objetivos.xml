@@ -49,5 +49,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        <ProgressBar
+            android:id="@+id/pbCargando"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="100dp"
+            android:layout_gravity="center|right"/>
+
+        <TextView
+            android:id="@+id/tvCargando"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:text="Cargando"
+            android:textSize="30sp"
+            android:layout_marginLeft="100dp"
+            android:layout_gravity="center|left"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

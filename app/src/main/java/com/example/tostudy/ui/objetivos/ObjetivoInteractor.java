@@ -19,8 +19,8 @@ public class ObjetivoInteractor implements OnRepositoryListCallBack {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void load(){
-        ObjetivoRepositoryRoom.getInstance(this).load();
+    public void load(String userId){
+        ObjetivoRepositoryRoom.getInstance(this).load(userId);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

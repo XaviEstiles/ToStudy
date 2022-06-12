@@ -126,6 +126,8 @@ public class EventosRecientesFragment extends Fragment implements EventoAdapter.
     @Override
     public <T> void onSuccessLoad(List<T> list) {
         showData(list);
+        binding.pbCargando.setVisibility(View.INVISIBLE);
+        binding.tvCargando.setVisibility(View.INVISIBLE);
     }
 
     @Override

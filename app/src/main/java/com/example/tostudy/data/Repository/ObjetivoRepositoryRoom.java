@@ -5,8 +5,10 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.example.tostudy.apiservice.ToStudyApiAdapter;
+import com.example.tostudy.apiservice.dto.BooleanResponse;
 import com.example.tostudy.apiservice.dto.ObjetivoResponse;
 import com.example.tostudy.data.model.Objetivo;
+import com.example.tostudy.data.model.User;
 import com.example.tostudy.ui.base.OnRepositoryListCallBack;
 import com.example.tostudy.ui.objetivos.ObjetivosManage.ObjManageContract;
 import com.example.tostudy.ui.objetivos.ObjetivoContract;
@@ -38,8 +40,8 @@ public class ObjetivoRepositoryRoom implements ObjetivoContract.Repository, ObjM
     }
 
     @Override
-    public void load() {
-        Call<ObjetivoResponse> call = ToStudyApiAdapter.getApiService().getObjetives("1");
+    public void load(String userId) {
+        Call<ObjetivoResponse> call = ToStudyApiAdapter.getApiService().getObjetives(userId);
         call.enqueue(new Callback<ObjetivoResponse>() {
 
             @Override
@@ -57,26 +59,91 @@ public class ObjetivoRepositoryRoom implements ObjetivoContract.Repository, ObjM
 
     @Override
     public void delete(Objetivo objetivo) {
-        //Database.databaseWriteExecutor.submit(()->objetivoDao.delete(objetivo));
-        interactor.onDeleteSuccess(objetivo.getName()+" eliminado.");
+        Call<BooleanResponse> call = ToStudyApiAdapter.getApiService().deleteObjetive(String.valueOf(objetivo.getId()));
+        call.enqueue(new Callback<BooleanResponse>() {
+
+            @Override
+            public void onResponse(Call<BooleanResponse> call, Response<BooleanResponse> response) {
+                BooleanResponse insertado = response.body();
+                if (insertado.getResult().equals("true"))
+                    interactor.onDeleteSuccess("Elemento eliminado");
+                else
+                    interactor.onFailure("Error al eliminar el objetivo");
+            }
+
+            @Override
+            public void onFailure(Call<BooleanResponse> call, Throwable t) {
+                interactor.onFailure("Error al eliminar");
+            }
+        });
     }
 
     @Override
     public void undo(Objetivo objetivo) {
-        //Database.databaseWriteExecutor.submit(()->objetivoDao.insert(objetivo));
-        interactor.onSuccess("Elemento recuperado");
+        add(objetivo);
     }
 
 
     @Override
     public void add(Objetivo objetivo) {
-        //Database.databaseWriteExecutor.submit(()->objetivoDao.insert(objetivo));
-        interactor.onSuccess("Elemento añadido");
+        String data = "{" +
+                "\"userId\": \""+objetivo.getUserId()+"\"," +
+                "\"name\": \""+objetivo.getName()+"\"," +
+                "\"date\": \""+objetivo.getDate()+"\"," +
+                "\"description\": \""+objetivo.getDescription()+"\"," +
+                "\"priority\": \""+objetivo.getPriority()+"\"," +
+                "\"progress\": \""+objetivo.getProgress()+"\"" +
+                "}";
+        Call<BooleanResponse> call = ToStudyApiAdapter.getApiService().saveObjetive(
+                data
+        );
+        call.enqueue(new Callback<BooleanResponse>() {
+
+            @Override
+            public void onResponse(Call<BooleanResponse> call, Response<BooleanResponse> response) {
+                BooleanResponse insertado = response.body();
+                if (insertado.getResult().equals("true"))
+                    interactor.onSuccess("Elemento añadido");
+                else
+                    interactor.onFailure("Error al guardar el objetivo");
+            }
+
+            @Override
+            public void onFailure(Call<BooleanResponse> call, Throwable t) {
+                interactor.onFailure("Error al guardar el objetivo");
+            }
+        });
     }
 
     @Override
     public void edit(Objetivo objetivo) {
-        //Database.databaseWriteExecutor.submit(()->objetivoDao.update(objetivo));
-        interactor.onSuccess("Elemento editado");
+        String data = "{" +
+                "\"id\": \""+objetivo.getId()+"\"," +
+                "\"userId\": \""+objetivo.getUserId()+"\"," +
+                "\"name\": \""+objetivo.getName()+"\"," +
+                "\"date\": \""+objetivo.getDate()+"\"," +
+                "\"description\": \""+objetivo.getDescription()+"\"," +
+                "\"priority\": \""+objetivo.getPriority()+"\"," +
+                "\"progress\": \""+objetivo.getProgress()+"\"" +
+                "}";
+        Call<BooleanResponse> call = ToStudyApiAdapter.getApiService().editObjetive(
+                data
+        );
+        call.enqueue(new Callback<BooleanResponse>() {
+
+            @Override
+            public void onResponse(Call<BooleanResponse> call, Response<BooleanResponse> response) {
+                BooleanResponse insertado = response.body();
+                if (insertado.getResult().equals("true"))
+                    interactor.onSuccess("Elemento editado");
+                else
+                    interactor.onFailure("Error al editar el objetivo");
+            }
+
+            @Override
+            public void onFailure(Call<BooleanResponse> call, Throwable t) {
+                interactor.onFailure("Error al editar el objetivo");
+            }
+        });
     }
 }

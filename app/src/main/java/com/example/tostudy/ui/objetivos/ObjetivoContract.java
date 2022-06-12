@@ -12,14 +12,14 @@ public interface ObjetivoContract {
         void showNoData();
     }
     interface Presenter extends OnRepositoryListCallBack {
-        void load();
+        void load(String userId);
         void undo(Objetivo objetivo);
         void editProgres(Objetivo objetivo);
         void delete(Objetivo objetivo);
         void order();
     }
     interface Repository{
-        void load();
+        void load(String userId);
         void delete(Objetivo objetivo);
         void undo(Objetivo objetivo);
     }

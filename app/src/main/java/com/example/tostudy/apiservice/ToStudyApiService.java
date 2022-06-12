@@ -33,4 +33,43 @@ public interface ToStudyApiService {
     Call<ObjetivoResponse> getObjetives(
             @Query("id") String data
     );
+
+    @FormUrlEncoded
+    @POST("toStudy.php?controller=objectives&req=insertObjectives")
+    Call<BooleanResponse> saveObjetive(
+            @Field("data") String data
+    );
+
+    @GET("toStudy.php?controller=objectives&req=deleteObjectives")
+    Call<BooleanResponse> deleteObjetive(
+            @Query("id") String data
+    );
+
+    @FormUrlEncoded
+    @POST("toStudy.php?controller=objectives&req=updateObjectives")
+    Call<BooleanResponse> editObjetive(
+            @Field("data") String data
+    );
+
+    @GET("toStudy.php?controller=objectives&req=allObjectives")
+    Call<ObjetivoResponse> getEvens(
+            @Query("id") String data
+    );
+
+    @FormUrlEncoded
+    @POST("toStudy.php?controller=objectives&req=insertObjectives")
+    Call<BooleanResponse> saveEvens(
+            @Field("data") String data
+    );
+
+    @GET("toStudy.php?controller=objectives&req=deleteObjectives")
+    Call<BooleanResponse> deleteEvense(
+            @Query("id") String data
+    );
+
+    @FormUrlEncoded
+    @POST("toStudy.php?controller=objectives&req=updateObjectives")
+    Call<BooleanResponse> editEvens(
+            @Field("data") String data
+    );
 }

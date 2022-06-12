@@ -32,14 +32,6 @@ public class ObjManageInteractor implements ObjManageContract.Interactor {
             return;
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate localDate = LocalDate.parse(objetivo.getDate(), formatter);
-
-        if(localDate.isBefore(LocalDate.now())){
-            presenter.onFechaErr();
-            return;
-        }
-
         edit(objetivo);
     }
 
@@ -54,7 +46,7 @@ public class ObjManageInteractor implements ObjManageContract.Interactor {
             return;
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(objetivo.getDate(), formatter);
 
         if(localDate.isBefore(LocalDate.now())){

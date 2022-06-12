@@ -102,9 +102,9 @@ public class ObjetivosFragment extends Fragment implements ObjetivoAdapter.OnMan
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         iniAdapter();
-        presenter.load();
-
         pref = getActivity().getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
+        presenter.load(pref.getString("IdUser",""));
+
         if (pref.getString("OrdenarObj","").equals("fecha")){
             adapter.orderByFecha();
         }else {
@@ -149,6 +149,8 @@ public class ObjetivosFragment extends Fragment implements ObjetivoAdapter.OnMan
     @Override
     public <T> void onSuccessLoad(List<T> list) {
         showData(list);
+        binding.pbCargando.setVisibility(View.INVISIBLE);
+        binding.tvCargando.setVisibility(View.INVISIBLE);
     }
 
     @Override

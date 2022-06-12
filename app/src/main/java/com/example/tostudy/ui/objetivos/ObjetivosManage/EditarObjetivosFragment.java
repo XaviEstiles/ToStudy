@@ -5,6 +5,7 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -39,7 +40,7 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
     Objetivo objetivo;
 
     ObjManageContract.Presenter presenter;
-
+    SharedPreferences prefs;
 
     final Calendar calendario = Calendar.getInstance();
     int anio = calendario.get(Calendar.YEAR);
@@ -55,6 +56,7 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
         binding = FragmentEditarObjetivoBinding.inflate(getLayoutInflater());
         navController = Navigation.findNavController(getActivity(), R.id.nav_host);
         presenter = new ObjManagePresenter(this);
+        prefs = getActivity().getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -71,7 +73,7 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
         }else{
             objetivo = new Objetivo();
 
-            binding.tilFechaObj.getEditText().setText(String.format("%02d", diaDelMes) + "/" + String.format("%02d", (mes+1)) + "/" + String.format("%04d", anio));
+            binding.tilFechaObj.getEditText().setText(String.format("%04d-%02d-%02d", anio ,(mes+1),diaDelMes));
             iniBtnAdd();
         }
 
@@ -89,16 +91,16 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
                 objetivo.setDescription(binding.tilDescrObj.getEditText().getText().toString());
                 switch (binding.spPrioridades.getSelectedItem().toString()){
                     case "Baja":
-                        objetivo.setPriority(0);
-                        break;
-                    case "Alta":
-                        objetivo.setPriority(2);
-                        break;
-                    case "Media":
                         objetivo.setPriority(1);
                         break;
+                    case "Alta":
+                        objetivo.setPriority(3);
+                        break;
+                    case "Media":
+                        objetivo.setPriority(2);
+                        break;
                     default:
-                        objetivo.setPriority(0);
+                        objetivo.setPriority(1);
                         break;
                 }
                 presenter.edit(objetivo);
@@ -114,22 +116,22 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
 
                 binding.tilNombreObj.setError(null);
                 binding.tilFechaObj.setError(null);
-
+                objetivo.setUserId(Integer.parseInt(prefs.getString("IdUser", "1")));
                 objetivo.setName(binding.tilNombreObj.getEditText().getText().toString());
                 objetivo.setDate(binding.tilFechaObj.getEditText().getText().toString());
                 objetivo.setDescription(binding.tilDescrObj.getEditText().getText().toString());
                 switch (binding.spPrioridades.getSelectedItem().toString()){
                     case "Baja":
-                        objetivo.setPriority(0);
-                        break;
-                    case "Alta":
-                        objetivo.setPriority(2);
-                        break;
-                    case "Media":
                         objetivo.setPriority(1);
                         break;
+                    case "Alta":
+                        objetivo.setPriority(3);
+                        break;
+                    case "Media":
+                        objetivo.setPriority(2);
+                        break;
                     default:
-                        objetivo.setPriority(0);
+                        objetivo.setPriority(1);
                         break;
                 }
                 presenter.add(objetivo);
@@ -144,7 +146,7 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
         ComponentName componentName = new ComponentName(getActivity(), TemporizadorServiceObj.class);
         JobInfo.Builder builder = new JobInfo.Builder(JOBID,componentName);
 
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime date = LocalDateTime.parse(objetivo.getDate()+" 09:00",format);
 
         Calendar now = Calendar.getInstance();
@@ -163,7 +165,7 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
         dialogoFecha.show();
     }
     private DatePickerDialog.OnDateSetListener listenerDeDatePicker = (view, anio, mes, diaDelMes) -> {
-        final String selectedDate = String.format("%02d", diaDelMes) + "/" + String.format("%02d", (mes+1)) + "/" + String.format("%02d", anio);
+        final String selectedDate = String.format("%04d-%02d-%02d", anio ,(mes+1),diaDelMes);
         binding.tvFecha.setText(selectedDate);
     };
 

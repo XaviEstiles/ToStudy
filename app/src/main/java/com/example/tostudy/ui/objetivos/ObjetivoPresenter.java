@@ -39,8 +39,8 @@ public class ObjetivoPresenter implements ObjetivoContract.Presenter{
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void load() {
-        interactor.load();
+    public void load(String userId) {
+        interactor.load(userId);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

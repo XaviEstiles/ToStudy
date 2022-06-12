@@ -48,7 +48,7 @@ public class EveManageInteractor implements EveManageContract.Interactor {
             return;
         }
 
-        formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //replace yyyy-MM-dd
         LocalDate localDate = LocalDate.parse(evento.getFecha(), formatter);
 
         if(localDate.isBefore(LocalDate.now())){
