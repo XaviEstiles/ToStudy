@@ -28,18 +28,20 @@ public class SingUpInteractor implements OnRepositoryCallBack {
             presenter.onPassEmpty();
             return;
         }
-        if(!pass.equals(confirmPass)){
-            presenter.onPassDontMach();
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            presenter.onEmailErr();
             return;
         }
         if(!CommonUtils.isPasswordValid(pass)){
             presenter.onPassErr();
             return;
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            presenter.onEmailErr();
+        if(!pass.equals(confirmPass)){
+            presenter.onPassDontMach();
             return;
         }
+
+
         LoginRepositoriFirebase.getInstance(this).SingUp(new User(nomUser,email,img), pass);
     }
 

@@ -45,7 +45,7 @@ public class SingUpPresenter implements SingUpContract.Presenter{
 
     @Override
     public void onPassErr() {
-        view.setEmailErr();
+        view.setPassErr();
     }
 
     @Override

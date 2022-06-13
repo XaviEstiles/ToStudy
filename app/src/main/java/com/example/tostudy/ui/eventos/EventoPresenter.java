@@ -60,9 +60,4 @@ public class EventoPresenter implements EventoContract.Presenter{
     public void delete(Evento evento) {
         interactor.delete(evento);
     }
-
-    @Override
-    public void order() {
-        view.showOrder();
-    }
 }

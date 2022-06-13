@@ -87,8 +87,8 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
             iniBtnEditar();
         }else{
             evento = new Evento();
-            binding.textInputLayout2.getEditText().setText(String.format("%02d:%02d", hora, min));
-            binding.textInputLayout3.getEditText().setText(String.format("%02d:%02d", hora+1, min));
+            binding.textInputLayout2.getEditText().setText(String.format("%02d:%02d:00", hora, min));
+            binding.textInputLayout3.getEditText().setText(String.format("%02d:%02d:00", hora+1, min));
             binding.textInputLayout4.getEditText().setText(String.format("%04d-%02d-%02d", anio, mes+1, diaDelMes));
             iniBtnAdd();
         }
@@ -133,14 +133,9 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
                         break;
                 }
                 presenter.edit(evento);
+                navController.navigate(R.id.eventosRecientesFragment);
             });
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
     }
 
     void iniBtnAdd(){
@@ -176,6 +171,7 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
                 }
                 iniJob();
                 presenter.add(evento);
+                navController.navigate(R.id.eventosRecientesFragment);
             });
         }
     }
@@ -185,7 +181,7 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
         ComponentName componentName = new ComponentName(getActivity(), TemporizadorServiceEve.class);
         JobInfo.Builder builder = new JobInfo.Builder(JOBID,componentName);
 
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime date = LocalDateTime.parse(evento.getDate()+" "+evento.getStartTime(),format).minusDays(1);
         Log.d("Fecha", date.toString());
         Calendar now = Calendar.getInstance();
@@ -212,11 +208,11 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
         dialogoTime.show();
     }
     private TimePickerDialog.OnTimeSetListener listenerDeTimePickerIni = (view, hora, min) -> {
-        final String selectedDate = String.format("%02d:%02d", hora, min);
+        final String selectedDate = String.format("%02d:%02d:00", hora, min);
         binding.tvHoraIni.setText(selectedDate);
     };
     private TimePickerDialog.OnTimeSetListener listenerDeTimePickerFin = (view, hora, min) -> {
-        final String selectedDate = String.format("%02d:%02d", hora, min);
+        final String selectedDate = String.format("%02d:%02d:00", hora, min);
         binding.tvHoraFin.setText(selectedDate);
     };
 

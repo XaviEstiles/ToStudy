@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.example.tostudy.R;
 import com.example.tostudy.data.model.Evento;
 import com.example.tostudy.data.model.Objetivo;
@@ -104,13 +105,6 @@ public class EventosRecientesFragment extends Fragment implements EventoAdapter.
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("ToStudy");
         toolbar.setVisibility(View.VISIBLE);
-
-
-        if (pref.getString("OrdenarEve","").equals("Fecha")){
-            adapter.orderByFecha();
-        }else {
-            adapter.orderByPrioridad();
-        }
     }
 
     private void initRvEventos(){
@@ -127,18 +121,25 @@ public class EventosRecientesFragment extends Fragment implements EventoAdapter.
     @Override
     public <T> void onSuccessLoad(List<T> list) {
         showData(list);
-        binding.pbCargando.setVisibility(View.INVISIBLE);
-        binding.tvCargando.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
     public void onDeleteSuccess(String msg) {
         adapter.delete(deleted);
+        if(adapter.getList() == null || adapter.getList().size() == 0){
+            showNoData();
+        }else{
+            binding.rvEventos2.setVisibility(View.VISIBLE);
+            binding.noData.setVisibility(View.INVISIBLE);
+        }
         Snackbar.make(getView(),msg, BaseTransientBottomBar.LENGTH_SHORT).setAction("Desacer", new View.OnClickListener() {
              @Override
             public void onClick(View v) {
                 presenter.undo(deleted);
                 adapter.undo(deleted);
+                 binding.rvEventos2.setVisibility(View.VISIBLE);
+                 binding.noData.setVisibility(View.INVISIBLE);
             }
         }).show();
     }
@@ -155,22 +156,29 @@ public class EventosRecientesFragment extends Fragment implements EventoAdapter.
 
     @Override
     public <T> void showData(List<T> list) {
+        if(list == null || list.size() == 0){
+            showNoData();
+        }else{
+            binding.rvEventos2.setVisibility(View.VISIBLE);
+            binding.noData.setVisibility(View.INVISIBLE);
+        }
         adapter.updateList((List<Evento>) list);
         if(list.size() < 7){
             stopScroll();
         }else{
             startScroll();
         }
-    }
-
-    @Override
-    public void showOrder() {
-
+        if (pref.getString("OrdenarEve","").equals("Fecha")){
+            adapter.orderByFecha();
+        }else {
+            adapter.orderByPrioridad();
+        }
     }
 
     @Override
     public void showNoData() {
-
+        binding.rvEventos2.setVisibility(View.INVISIBLE);
+        binding.noData.setVisibility(View.VISIBLE);
     }
 
     @Override

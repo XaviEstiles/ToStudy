@@ -30,6 +30,12 @@ public interface ToStudyApiService {
             @Field("data") String data
     );
 
+    @FormUrlEncoded
+    @POST("toStudy.php?controller=users&req=updateUser")
+    Call<UserResponse> editUser(
+            @Field("data") String data
+    );
+
     @GET("toStudy.php?controller=objectives&req=allObjectives")
     Call<ObjetivoResponse> getObjetives(
             @Query("id") String data
@@ -54,26 +60,26 @@ public interface ToStudyApiService {
 
     @FormUrlEncoded
     @POST("toStudy.php?controller=events&req=allEvents")
-    Call<EventoResponse> getEvens(
+    Call<EventoResponse> getEvents(
             @Query("id") String data,
             @Field("date") String date,
             @Query("mode") String mode
     );
 
     @FormUrlEncoded
-    @POST("toStudy.php?controller=events&req=allObjectives")
-    Call<BooleanResponse> saveEvens(
+    @POST("toStudy.php?controller=events&req=insertEvents")
+    Call<BooleanResponse> saveEvents(
             @Field("data") String data
     );
 
-    @GET("toStudy.php?controller=events&req=deleteObjectives")
-    Call<BooleanResponse> deleteEvense(
+    @GET("toStudy.php?controller=events&req=deleteEvents")
+    Call<BooleanResponse> deleteEvents(
             @Query("id") String data
     );
 
     @FormUrlEncoded
-    @POST("toStudy.php?controller=events&req=updateObjectives")
-    Call<BooleanResponse> editEvens(
+    @POST("toStudy.php?controller=events&req=updateEvents")
+    Call<BooleanResponse> editEvents(
             @Field("data") String data
     );
 }

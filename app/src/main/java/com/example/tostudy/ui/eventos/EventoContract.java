@@ -8,7 +8,6 @@ import java.util.List;
 public interface EventoContract {
     interface View extends OnRepositoryListCallBack {
         <T> void showData(List<T> list);
-        void showOrder();
         void showNoData();
     }
     interface Presenter extends OnRepositoryListCallBack {
@@ -16,7 +15,6 @@ public interface EventoContract {
         void load(String fecha,String userId);
         void undo(Evento evento);
         void delete(Evento evento);
-        void order();
     }
     interface Repository{
         void load(String userId);

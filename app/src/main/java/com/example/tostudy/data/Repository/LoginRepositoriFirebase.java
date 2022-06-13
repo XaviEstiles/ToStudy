@@ -111,4 +111,22 @@ public class LoginRepositoriFirebase implements LoginContract.Repository {
             }
         });
     }
+
+    public void editImgPerfil(User user, String img){
+        Call<UserResponse> call =  ToStudyApiAdapter.getApiService().editUser(
+                "{\"id\":\""+user.getId()+"\",\"email\":\""+user.getEmail()+"\",\"name\":\""+user.getUser()+"\",\"img\":\""+img+"\"}"
+        );
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                UserResponse editado = response.body();
+                interactor.onSuccess("usuario regidtrado", new User(editado.getId(),editado.getUser(), editado.getEmail(), editado.getImg()));
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                interactor.onFailure("Error de autenticacion");
+            }
+        });
+    }
 }

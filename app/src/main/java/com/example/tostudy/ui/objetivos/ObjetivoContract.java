@@ -8,7 +8,6 @@ import java.util.List;
 public interface ObjetivoContract {
     interface View extends OnRepositoryListCallBack {
         <T> void showData(List<T> list);
-        void showOrder();
         void showNoData();
     }
     interface Presenter extends OnRepositoryListCallBack {
@@ -16,7 +15,6 @@ public interface ObjetivoContract {
         void undo(Objetivo objetivo);
         void editProgres(Objetivo objetivo);
         void delete(Objetivo objetivo);
-        void order();
     }
     interface Repository{
         void load(String userId);

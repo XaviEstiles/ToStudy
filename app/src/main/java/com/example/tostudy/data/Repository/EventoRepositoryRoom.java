@@ -5,8 +5,8 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.example.tostudy.apiservice.ToStudyApiAdapter;
+import com.example.tostudy.apiservice.dto.BooleanResponse;
 import com.example.tostudy.apiservice.dto.EventoResponse;
-import com.example.tostudy.apiservice.dto.ObjetivoResponse;
 import com.example.tostudy.data.model.Evento;
 import com.example.tostudy.ui.eventos.EventoContract;
 import com.example.tostudy.ui.eventos.EventoInteractor;
@@ -52,7 +52,7 @@ public class EventoRepositoryRoom implements EventoContract.Repository, EveManag
     @Override
     public void load(String userId) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Call<EventoResponse> call = ToStudyApiAdapter.getApiService().getEvens("1","2022-06-01","nearlyEvents");//formatter.format(new Date()));
+        Call<EventoResponse> call = ToStudyApiAdapter.getApiService().getEvents(userId,formatter.format(new Date()),"nearlyEvents");
         call.enqueue(new Callback<EventoResponse>() {
 
             @Override
@@ -70,7 +70,7 @@ public class EventoRepositoryRoom implements EventoContract.Repository, EveManag
 
     @Override
     public void load(String fecha, String userId) {
-        Call<EventoResponse> call = ToStudyApiAdapter.getApiService().getEvens("1",fecha,"");
+        Call<EventoResponse> call = ToStudyApiAdapter.getApiService().getEvents(userId,fecha,"");
         call.enqueue(new Callback<EventoResponse>() {
 
             @Override
@@ -91,21 +91,93 @@ public class EventoRepositoryRoom implements EventoContract.Repository, EveManag
 
     @Override
     public void delete(Evento evento) {
-        interactor.onDeleteSuccess(evento.getName()+" eliminado.");
+        Call<BooleanResponse> call = ToStudyApiAdapter.getApiService().deleteEvents(String.valueOf(evento.getId()));
+        call.enqueue(new Callback<BooleanResponse>() {
+
+            @Override
+            public void onResponse(Call<BooleanResponse> call, Response<BooleanResponse> response) {
+                BooleanResponse insertado = response.body();
+                if (insertado.getResult().equals("true"))
+                    interactor.onDeleteSuccess("Elemento eliminado");
+                else
+                    interactor.onFailure("Error al eliminar el evento");
+            }
+
+            @Override
+            public void onFailure(Call<BooleanResponse> call, Throwable t) {
+                interactor.onFailure("Error al eliminar");
+            }
+        });
     }
 
     @Override
     public void undo(Evento evento) {
-        interactor.onSuccess("Elemento recuperado");
+        add(evento);
     }
+
 
     @Override
     public void add(Evento evento) {
-        interactorM.onSuccess("Elemento añadido");
+        String data = "{" +
+                "\"userId\": \""+evento.getUserId()+"\"," +
+                "\"name\": \""+evento.getName()+"\"," +
+                "\"startTime\": \""+evento.getStartTime()+"\"," +
+                "\"finishTime\": \""+evento.getFinishTime()+"\"," +
+                "\"date\": \""+evento.getDate()+"\"," +
+                "\"description\": \""+evento.getDescription()+"\"," +
+                "\"priority\": \""+evento.getPriority()+"\""+
+                "}";
+        Call<BooleanResponse> call = ToStudyApiAdapter.getApiService().saveEvents(
+                data
+        );
+        call.enqueue(new Callback<BooleanResponse>() {
+
+            @Override
+            public void onResponse(Call<BooleanResponse> call, Response<BooleanResponse> response) {
+                BooleanResponse insertado = response.body();
+                if (insertado.getResult().equals("true"))
+                    interactor.onSuccess("Elemento añadido");
+                else
+                    interactor.onFailure("Error al guardar el evento");
+            }
+
+            @Override
+            public void onFailure(Call<BooleanResponse> call, Throwable t) {
+                interactor.onFailure("Error al guardar el evento");
+            }
+        });
     }
 
     @Override
     public void edit(Evento evento) {
-        interactor.onSuccess("Elemento editado");
+        String data = "{" +
+                "\"id\": \""+evento.getId()+"\"," +
+                "\"userId\": \""+evento.getUserId()+"\"," +
+                "\"name\": \""+evento.getName()+"\"," +
+                "\"date\": \""+evento.getDate()+"\"," +
+                "\"startTime\": \""+evento.getStartTime()+"\"," +
+                "\"finishTime\": \""+evento.getFinishTime()+"\"," +
+                "\"description\": \""+evento.getDescription()+"\"," +
+                "\"priority\": \""+evento.getPriority()+"\"" +
+                "}";
+        Call<BooleanResponse> call = ToStudyApiAdapter.getApiService().editEvents(
+                data
+        );
+        call.enqueue(new Callback<BooleanResponse>() {
+
+            @Override
+            public void onResponse(Call<BooleanResponse> call, Response<BooleanResponse> response) {
+                BooleanResponse insertado = response.body();
+                if (insertado.getResult().equals("true"))
+                    interactor.onSuccess("Elemento editado");
+                else
+                    interactor.onFailure("Error al editar el evento");
+            }
+
+            @Override
+            public void onFailure(Call<BooleanResponse> call, Throwable t) {
+                interactor.onFailure("Error al editar el evento");
+            }
+        });
     }
 }

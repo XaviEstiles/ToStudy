@@ -23,12 +23,11 @@ public class Evento implements Comparable, Serializable {
     String date;
     String description;
     int priority;
-    float progress;
 
     @Ignore
     public Evento(){}
 
-    public Evento(Integer id, String startTime, String finishTime, Integer userId, String name, String date, String description, int priority, float progress) {
+    public Evento(Integer id, String startTime, String finishTime, Integer userId, String name, String date, String description, int priority) {
         this.id = id;
         this.startTime = startTime;
         this.finishTime = finishTime;
@@ -37,7 +36,6 @@ public class Evento implements Comparable, Serializable {
         this.date = date;
         this.description = description;
         this.priority = priority;
-        this.progress = progress;
     }
 
     public Integer getId() {

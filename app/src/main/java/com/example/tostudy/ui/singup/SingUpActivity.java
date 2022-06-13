@@ -1,8 +1,10 @@
 package com.example.tostudy.ui.singup;
 
 import static com.example.tostudy.utils.CommonUtils.convert;
+import static com.example.tostudy.utils.CommonUtils.redimensionarImagen;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -36,6 +38,7 @@ public class SingUpActivity extends AppCompatActivity implements SingUpContract.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding = ActivitySingUpBinding.inflate(getLayoutInflater());
         presenter = new SingUpPresenter(this);
         setContentView(binding.getRoot());
@@ -55,8 +58,8 @@ public class SingUpActivity extends AppCompatActivity implements SingUpContract.
         });
 
         binding.btnRegistrarse.setOnClickListener(view -> {
-            presenter.validateCredentials(binding.tieNom.getText().toString(),
-                                        binding.tieEmail.getText().toString(),
+            presenter.validateCredentials(binding.tieNom.getText().toString().trim(),
+                                        binding.tieEmail.getText().toString().trim(),
                                         binding.tiePassword.getText().toString(),
                                         binding.tieRePassword.getText().toString(),
                                         imgBase64
@@ -98,6 +101,7 @@ public class SingUpActivity extends AppCompatActivity implements SingUpContract.
 
                             // Transformamos la URI de la imagen a inputStream y este a un Bitmap
                             Bitmap bmp = BitmapFactory.decodeStream(imageStream);
+                            bmp = redimensionarImagen(bmp);
                             imgBase64 = convert(bmp);
                             // Ponemos nuestro bitmap en un ImageView que tengamos en la vista
                             Glide.with(getApplicationContext())
@@ -145,7 +149,7 @@ public class SingUpActivity extends AppCompatActivity implements SingUpContract.
 
     @Override
     public void setPassErr() {
-        binding.tilPassword.setError("Formato no valido.");
+        binding.tilPassword.setError("Formato no valido. Debe contener ");
     }
 
     @Override

@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -105,11 +106,6 @@ public class MainActivity extends AppCompatActivity{
         appBarConfiguration = new AppBarConfiguration.Builder(topLevelDestination).setOpenableLayout(binding.drawerLayout).build();
         NavigationUI.setupActionBarWithNavController(this,navController, appBarConfiguration);
 
-        binding.navigationView.getHeaderView(0).setOnClickListener(v -> {
-            navController.navigate(R.id.perfilFragment);
-            binding.getRoot().closeDrawers();
-        });
-
         ImageView img = ((ImageView) binding.navigationView.getHeaderView(0).findViewById(R.id.imgPerfilMenu));
         TextView tvEmail = ((TextView) binding.navigationView.getHeaderView(0).findViewById(R.id.tvEmail));
         TextView tvNombre = ((TextView) binding.navigationView.getHeaderView(0).findViewById(R.id.tvNombre));
@@ -122,12 +118,27 @@ public class MainActivity extends AppCompatActivity{
                 .error(R.drawable.imgperfil)
                 .circleCrop()
                 .into(img);
+
+        binding.navigationView.getHeaderView(0).setOnClickListener(v -> {
+            navController.navigate(R.id.perfilFragment);
+            binding.getRoot().closeDrawers();
+        });
+
+
+    }
+    public void cambiarImg(){
+        Glide.with(getApplicationContext())
+                .load(prefs.getString("Img",""))
+                .error(R.drawable.imgperfil)
+                .circleCrop()
+                .into(((ImageView) binding.navigationView.getHeaderView(0).findViewById(R.id.imgPerfilMenu)));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         binding.navigationView.setCheckedItem(R.id.eventosRecientesFragment);
+
     }
 
     @Override
@@ -140,9 +151,6 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (!prefs.getBoolean("Recuerdame",false)){
-            prefs.edit().clear().apply();
-        }
     }
 
     /*@Override

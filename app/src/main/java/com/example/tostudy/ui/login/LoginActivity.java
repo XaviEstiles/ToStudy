@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.tostudy.data.model.User;
 import com.example.tostudy.databinding.ActivityLoginBinding;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         presenter = new LoginPresenter(this);
         prefs = getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
@@ -38,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         setContentView(binding.getRoot());
 
         binding.btnLogin.setOnClickListener(view -> {
-            presenter.validateCredentials(binding.tieUser.getText().toString(),binding.tiePassword.getText().toString());
+            presenter.validateCredentials(binding.tieUser.getText().toString().trim(),binding.tiePassword.getText().toString());
         });
 
         binding.btnRegistrar.setOnClickListener(view -> {

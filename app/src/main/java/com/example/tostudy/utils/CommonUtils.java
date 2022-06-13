@@ -1,6 +1,7 @@
 package com.example.tostudy.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
@@ -45,5 +46,19 @@ public final class CommonUtils {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
 
         return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT).replace("\n","");
+    }
+
+    public static Bitmap redimensionarImagen(Bitmap mBitmap){
+        //Redimensionamos
+        int width = mBitmap.getWidth();
+        int height = mBitmap.getHeight();
+        float scaleWidth =  0.3F;
+        float scaleHeight = 0.3F;
+        // create a matrix for the manipulation
+        Matrix matrix = new Matrix();
+        // resize the bit map
+        matrix.postScale(scaleWidth, scaleHeight);
+        // recreate the new Bitmap
+        return Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, false);
     }
 }

@@ -39,7 +39,7 @@ public class EveManageInteractor implements EveManageContract.Interactor {
             return;
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("kk:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("kk:mm:ss");
         LocalTime horaIni = LocalTime.parse(evento.getStartTime(),formatter);
         LocalTime horaFin = LocalTime.parse(evento.getFinishTime(),formatter);
 
@@ -78,7 +78,7 @@ public class EveManageInteractor implements EveManageContract.Interactor {
             return;
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("kk:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("kk:mm:ss");
         LocalTime horaIni = LocalTime.parse(evento.getStartTime(),formatter);
         LocalTime horaFin = LocalTime.parse(evento.getFinishTime(),formatter);
 
@@ -100,6 +100,7 @@ public class EveManageInteractor implements EveManageContract.Interactor {
 
     @Override
     public <T> void onSuccessLoad(List<T> list) {
+
     }
 
     @Override

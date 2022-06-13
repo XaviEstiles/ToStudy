@@ -7,13 +7,13 @@
     <fragment
         android:id="@+id/calendarioFragment"
         android:name="com.example.tostudy.ui.eventos.CalendarioFragment"
-        android:label="fragment_calendario"
-        tools:layout="@layout/fragment_calendario" >
+        android:label="Calendario"
+        tools:layout="@layout/fragment_calendario">
         <argument
             android:name="argEvento"
+            android:defaultValue="@null"
             app:argType="com.example.tostudy.data.model.Evento"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <action
             android:id="@+id/action_calendarioFragment_to_editarEventoFragment"
             app:destination="@id/editarEventoFragment" />
@@ -23,22 +23,22 @@
     </fragment>
     <fragment
         android:id="@+id/ajustesFragment"
-        android:name="com.example.tostudy.ui.fragment.AjustesFragment"
-        android:label="fragment_ajustes"
+        android:name="com.example.tostudy.ui.ajustes.AjustesFragment"
+        android:label="Ajustes"
         tools:layout="@layout/fragment_ajustes" />
     <fragment
         android:id="@+id/eventosRecientesFragment"
         android:name="com.example.tostudy.ui.eventos.EventosRecientesFragment"
-        android:label="fragment_eventos_recientes"
-        tools:layout="@layout/fragment_eventos_recientes" >
+        android:label="Eventos Recientes"
+        tools:layout="@layout/fragment_eventos_recientes">
         <action
             android:id="@+id/action_eventosRecientesFragment_to_editarEventoFragment"
             app:destination="@id/editarEventoFragment" />
         <argument
             android:name="argEvento"
+            android:defaultValue="@null"
             app:argType="com.example.tostudy.data.model.Evento"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <action
             android:id="@+id/action_eventosRecientesFragment_to_infoEventFragment"
             app:destination="@id/infoEventFragment" />
@@ -46,19 +46,16 @@
     <fragment
         android:id="@+id/objetivoFragment"
         android:name="com.example.tostudy.ui.objetivos.ObjetivosFragment"
-        android:label="fragment_objetivo"
+        android:label="Objetivos"
         tools:layout="@layout/fragment_objetivos">
         <action
             android:id="@+id/action_objetivoFragment_to_editarObjetivoFragment"
             app:destination="@id/editarObjetivoFragment" />
         <argument
             android:name="argObjetivo"
+            android:defaultValue="@null"
             app:argType="com.example.tostudy.data.model.Objetivo"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <action
-            android:id="@+id/action_objetivoFragment_to_baseDialogFragment"
-            app:destination="@id/baseDialogFragment" />
+            app:nullable="true" />
         <action
             android:id="@+id/action_objetivoFragment_to_infoObjetivosFragment"
             app:destination="@id/infoObjetivosFragment" />
@@ -66,42 +63,38 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.tostudy.ui.fragment.AboutFragment"
-        android:label="AboutFragment" />
+        android:label="About us" />
     <fragment
         android:id="@+id/editarEventoFragment"
         android:name="com.example.tostudy.ui.eventos.EventosManage.EditarEventoFragment"
-        android:label="fragment_editar_evento"
-        tools:layout="@layout/fragment_editar_evento" >
+        android:label="Add/Edit Evento"
+        tools:layout="@layout/fragment_editar_evento">
         <argument
             android:name="argEvento"
+            android:defaultValue="@null"
             app:argType="com.example.tostudy.data.model.Evento"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/editarObjetivoFragment"
         android:name="com.example.tostudy.ui.objetivos.ObjetivosManage.EditarObjetivosFragment"
-        android:label="fragment_editar_Objetivo"
-        tools:layout="@layout/fragment_editar_Objetivo" >
+        android:label="Add/Edit Objetivo"
+        tools:layout="@layout/fragment_editar_Objetivo">
         <argument
             android:name="argObjetivo"
+            android:defaultValue="@null"
             app:argType="com.example.tostudy.data.model.Objetivo"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
-    <dialog
-        android:id="@+id/baseDialogFragment"
-        android:name="com.example.tostudy.ui.base.BaseDialogFragment"
-        android:label="BaseDialogFragment" />
     <fragment
         android:id="@+id/perfilFragment"
         android:name="com.example.tostudy.ui.fragment.PerfilFragment"
-        android:label="fragment_perfil"
+        android:label="Perfil "
         tools:layout="@layout/fragment_perfil" />
     <fragment
         android:id="@+id/infoObjetivosFragment"
         android:name="com.example.tostudy.ui.objetivos.InfoObjetivosFragment"
-        android:label="InfoObjetivosFragment">
+        android:label="Info Objetivos">
         <argument
             android:name="objetivo"
             app:argType="com.example.tostudy.data.model.Objetivo" />
@@ -109,8 +102,8 @@
     <fragment
         android:id="@+id/infoEventFragment"
         android:name="com.example.tostudy.ui.eventos.InfoEventFragment"
-        android:label="fragment_info_event"
-        tools:layout="@layout/fragment_info_event" >
+        android:label="Info Eventos"
+        tools:layout="@layout/fragment_info_event">
         <argument
             android:name="evento"
             app:argType="com.example.tostudy.data.model.Evento" />

@@ -14,20 +14,24 @@
         android:theme="@style/Theme.ToStudy">
         <activity
             android:name=".ui.main.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.ToStudy.NoActionBar">
         </activity>
         <activity
             android:name=".ui.singup.SingUpActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/Theme.ToStudy.NoActionBar" />
         <activity
             android:name=".ui.login.LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/Theme.ToStudy.NoActionBar" />
         <activity
             android:name=".ui.splash.SplashActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/Theme.ToStudy.NoActionBar" >
             <intent-filter>

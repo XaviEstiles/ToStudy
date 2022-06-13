@@ -131,11 +131,11 @@ public class CalendarioFragment extends Fragment implements EventoContract.View,
         }else{
             startScroll();
         }
-    }
-
-    @Override
-    public void showOrder() {
-
+        if (prefs.getString("OrdenarEve","").equals("Fecha")){
+            adapter.orderByFecha();
+        }else {
+            adapter.orderByPrioridad();
+        }
     }
 
     @Override

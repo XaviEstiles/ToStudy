@@ -60,9 +60,4 @@ public class ObjetivoPresenter implements ObjetivoContract.Presenter{
     public void delete(Objetivo objetivo) {
         interactor.delete(objetivo);
     }
-
-    @Override
-    public void order() {
-        view.showOrder();
-    }
 }

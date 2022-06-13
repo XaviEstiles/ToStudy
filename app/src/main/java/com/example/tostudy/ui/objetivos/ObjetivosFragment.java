@@ -9,15 +9,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,9 +25,6 @@ import android.view.ViewGroup;
 import com.example.tostudy.R;
 import com.example.tostudy.data.model.Objetivo;
 import com.example.tostudy.databinding.FragmentObjetivosBinding;
-import com.example.tostudy.ui.base.BaseDialogFragment;
-import com.example.tostudy.ui.objetivos.ObjetivosManage.ObjManageContract;
-import com.example.tostudy.ui.objetivos.ObjetivosManage.ObjManagePresenter;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -104,12 +98,6 @@ public class ObjetivosFragment extends Fragment implements ObjetivoAdapter.OnMan
         iniAdapter();
         pref = getActivity().getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
         presenter.load(pref.getString("IdUser",""));
-
-        if (pref.getString("OrdenarObj","").equals("fecha")){
-            adapter.orderByFecha();
-        }else {
-            adapter.orderByPrioridad();
-        }
     }
 
     void iniAdapter(){
@@ -126,43 +114,32 @@ public class ObjetivosFragment extends Fragment implements ObjetivoAdapter.OnMan
         bundle.putSerializable("objetivo", objetivo);
         navController.navigate(R.id.action_objetivoFragment_to_infoObjetivosFragment,bundle);
 
-        /*resultado = false;
-        presenter.editProgres(objetivo);
-        if(objetivo.getProgreso() == 5){
-            //dialogo para eliminarlo
-            Bundle bundle = new Bundle();
-            bundle.putString(BaseDialogFragment.TITLE,"Objetivo Completado");
-            bundle.putString(BaseDialogFragment.MESSAGE,"El objetivo "+objetivo.getName()+" ha sido cumplido. ¿Desea eliminarlo?");
-            getActivity().getSupportFragmentManager().setFragmentResultListener(BaseDialogFragment.KEY, this, new FragmentResultListener() {
-                @Override
-                public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                    if (result.getBoolean(BaseDialogFragment.KEY_BUNDLE)) {
-                        deleted = objetivo;
-                        presenter.delete(objetivo);
-                    }
-                }
-            });
-            NavHostFragment.findNavController(this).navigate(R.id.action_objetivoFragment_to_baseDialogFragment,bundle);
-        }*/
     }
 
     @Override
     public <T> void onSuccessLoad(List<T> list) {
         showData(list);
-        binding.pbCargando.setVisibility(View.INVISIBLE);
-        binding.tvCargando.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onDeleteSuccess(String msg) {
         adapter.delete(deleted);
+        if(adapter.getList() == null || adapter.getList().size() == 0){
+            showNoData();
+        }else{
+            binding.rvObjetivos.setVisibility(View.VISIBLE);
+            binding.noData.setVisibility(View.INVISIBLE);
+        }
         Snackbar.make(getView(),msg, BaseTransientBottomBar.LENGTH_SHORT).setAction("Desacer", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.undo(deleted);
                 adapter.undo(deleted);
+                binding.rvObjetivos.setVisibility(View.VISIBLE);
+                binding.noData.setVisibility(View.INVISIBLE);
             }
         }).show();
+
     }
 
     @Override
@@ -177,22 +154,31 @@ public class ObjetivosFragment extends Fragment implements ObjetivoAdapter.OnMan
 
     @Override
     public <T> void showData(List<T> list) {
+        if(list == null || list.size() == 0){
+            showNoData();
+        }else{
+            binding.rvObjetivos.setVisibility(View.VISIBLE);
+            binding.noData.setVisibility(View.INVISIBLE);
+        }
+
         adapter.updateList((List<Objetivo>) list);
         if(list.size() < 6){
             stopScroll();
         }else{
             startScroll();
         }
-    }
-
-    @Override
-    public void showOrder() {
-
+        if (pref.getString("OrdenarObj","").equals("Fecha")){
+            adapter.orderByFecha();
+        }else {
+            adapter.orderByPrioridad();
+        }
     }
 
     @Override
     public void showNoData() {
 
+        binding.rvObjetivos.setVisibility(View.INVISIBLE);
+        binding.noData.setVisibility(View.VISIBLE);
     }
 
     @Override
