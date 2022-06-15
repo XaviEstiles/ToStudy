@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.example.tostudy.ui.fragment.AboutFragment"
+        android:name="com.example.tostudy.ui.aboutUs.AboutFragment"
         android:label="About us" />
     <fragment
         android:id="@+id/editarEventoFragment"
@@ -88,7 +88,7 @@
     </fragment>
     <fragment
         android:id="@+id/perfilFragment"
-        android:name="com.example.tostudy.ui.fragment.PerfilFragment"
+        android:name="com.example.tostudy.ui.perfil.PerfilFragment"
         android:label="Perfil "
         tools:layout="@layout/fragment_perfil" />
     <fragment

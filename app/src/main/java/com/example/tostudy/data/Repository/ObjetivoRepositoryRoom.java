@@ -37,6 +37,10 @@ public class ObjetivoRepositoryRoom implements ObjetivoContract.Repository, ObjM
         return repository;
     }
 
+    public ArrayList<Objetivo> getObjetivos() {
+        return objetivos;
+    }
+
     @Override
     public void load(String userId) {
         Call<ObjetivoResponse> call = ToStudyApiAdapter.getApiService().getObjetives(userId);
@@ -63,8 +67,10 @@ public class ObjetivoRepositoryRoom implements ObjetivoContract.Repository, ObjM
             @Override
             public void onResponse(Call<BooleanResponse> call, Response<BooleanResponse> response) {
                 BooleanResponse insertado = response.body();
-                if (insertado.getResult().equals("true"))
+                if (insertado.getResult().equals("true")) {
+                    objetivos.remove(objetivo);
                     interactor.onDeleteSuccess("Elemento eliminado");
+                }
                 else
                     interactor.onFailure("Error al eliminar el objetivo");
             }

@@ -1,4 +1,4 @@
-package com.example.tostudy.ui.fragment;
+package com.example.tostudy.ui.aboutUs;
 
 import android.os.Bundle;
 

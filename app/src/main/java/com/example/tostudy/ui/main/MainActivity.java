@@ -12,6 +12,8 @@ import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.example.tostudy.databinding.ActivityMainBinding;
+import com.example.tostudy.ui.objetivos.ObjetivoContract;
+import com.example.tostudy.ui.objetivos.ObjetivoPresenter;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -43,11 +45,10 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.tostudy.R;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity{
-
-
+public class MainActivity extends AppCompatActivity implements ObjetivoContract.View {
 
     public interface OnBackPressedListener{
         void onBackPressed();
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity{
     public void setOnBackPressedListener(OnBackPressedListener listener){
         this.listener = listener;
     }
+
+    ObjetivoContract.Presenter presenter;
+
     @Override
     public void onBackPressed() {
         if(listener != null)
@@ -88,6 +92,9 @@ public class MainActivity extends AppCompatActivity{
         navController = Navigation.findNavController(this, R.id.nav_host);
 
         prefs = this.getSharedPreferences("com.example.tostudy.PREFERENCES_FILE_KEY", Context.MODE_PRIVATE);
+
+        presenter = new ObjetivoPresenter(this);
+        presenter.load(prefs.getString("IdUser", ""));
 
         toolbar = binding.layoutToolbar.toolbar;
         toolbar.setTitle("ToStudy");
@@ -151,6 +158,36 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public <T> void onSuccessLoad(List<T> list) {
+
+    }
+
+    @Override
+    public void onDeleteSuccess(String msg) {
+
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+
+    }
+
+    @Override
+    public void onFailure(String msg) {
+
+    }
+
+    @Override
+    public <T> void showData(List<T> list) {
+
+    }
+
+    @Override
+    public void showNoData() {
+
     }
 
     /*@Override
