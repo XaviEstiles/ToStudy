@@ -144,7 +144,7 @@ public class SingUpActivity extends AppCompatActivity implements SingUpContract.
 
     @Override
     public void setEmailErr() {
-        binding.tilEmail.setError("Formato no valido.");
+        binding.tilEmail.setError("8 caracteres como minimo y debe incluir nums, mayuscula, munuscula y algun signo.");
     }
 
     @Override
