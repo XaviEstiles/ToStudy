@@ -87,10 +87,16 @@ public class AjustesFragment extends Fragment implements OnRepositoryCallBack {
             binding.swOrdEve.setChecked(true);
         }
 
-        if (prefs.getString("OrdenarObj","").equals("Fecha")){
-            binding.swOrdObj.setChecked(false);
+        if (prefs.getBoolean("NotEvent",false)){
+            binding.swNotEve.setChecked(false);
         }else {
-            binding.swOrdObj.setChecked(true);
+            binding.swNotEve.setChecked(true);
+        }
+
+        if (prefs.getBoolean("NotObj",false)){
+            binding.swNotObj.setChecked(false);
+        }else {
+            binding.swNotObj.setChecked(true);
         }
 
         binding.swOrdEve.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -106,6 +112,22 @@ public class AjustesFragment extends Fragment implements OnRepositoryCallBack {
                 prefs.edit().putString("OrdenarObj","Prioridad").apply();
             } else {
                 prefs.edit().putString("OrdenarObj","Fecha").apply();
+            }
+        });
+
+        binding.swNotEve.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                prefs.edit().putBoolean("NotEvent",true).apply();
+            } else {
+                prefs.edit().putBoolean("NotEvent",false).apply();
+            }
+        });
+
+        binding.swNotObj.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                prefs.edit().putBoolean("NotObj",true).apply();
+            } else {
+                prefs.edit().putBoolean("NotObj",false).apply();
             }
         });
 

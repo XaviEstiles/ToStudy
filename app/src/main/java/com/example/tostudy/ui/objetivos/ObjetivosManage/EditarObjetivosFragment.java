@@ -21,7 +21,6 @@ import androidx.navigation.Navigation;
 import com.example.tostudy.R;
 import com.example.tostudy.broadcastreciver.TemporizadorServiceObj;
 import com.example.tostudy.data.model.Objetivo;
-import com.example.tostudy.data.model.Prioridad;
 import com.example.tostudy.databinding.FragmentEditarObjetivoBinding;
 import com.example.tostudy.ui.main.MainActivity;
 
@@ -38,7 +37,7 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
     FragmentEditarObjetivoBinding binding;
     NavController navController;
     Objetivo objetivo;
-
+    Boolean newObj = false;
     ObjManageContract.Presenter presenter;
     SharedPreferences prefs;
 
@@ -104,7 +103,6 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
                         break;
                 }
                 presenter.edit(objetivo);
-                navController.navigate(R.id.objetivoFragment);
             });
         }
     }
@@ -135,8 +133,7 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
                         break;
                 }
                 presenter.add(objetivo);
-                iniJob();
-                navController.navigate(R.id.objetivoFragment);
+                newObj = true;
             });
         }
     }
@@ -185,9 +182,24 @@ public class EditarObjetivosFragment extends Fragment implements MainActivity.On
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onSuccess(String msg) {
         Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
+        navController.navigate(R.id.objetivoFragment);
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(objetivo.getDate()+" 09:00",format);
+
+        Calendar now = Calendar.getInstance();
+
+        if(prefs.getBoolean("NotObj",false) &&
+                newObj &&
+                now.getTimeInMillis() != date.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        ){
+            iniJob();
+        }
+
     }
 
     @Override

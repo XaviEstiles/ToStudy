@@ -26,7 +26,6 @@ import android.widget.Toast;
 import com.example.tostudy.R;
 import com.example.tostudy.broadcastreciver.TemporizadorServiceEve;
 import com.example.tostudy.data.model.Evento;
-import com.example.tostudy.data.model.Prioridad;
 import com.example.tostudy.databinding.FragmentEditarEventoBinding;
 import com.example.tostudy.ui.main.MainActivity;
 
@@ -41,6 +40,7 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
     private final int JOBID = 1;
     FragmentEditarEventoBinding binding;
     Evento evento;
+    Boolean newEve = false;
     NavController navController;
     EveManageContract.Presenter presenter;
     SharedPreferences prefs;
@@ -133,7 +133,7 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
                         break;
                 }
                 presenter.edit(evento);
-                navController.navigate(R.id.eventosRecientesFragment);
+
             });
         }
     }
@@ -169,9 +169,9 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
                         evento.setPriority(1);
                         break;
                 }
-                iniJob();
                 presenter.add(evento);
-                navController.navigate(R.id.eventosRecientesFragment);
+                newEve=true;
+
             });
         }
     }
@@ -241,9 +241,23 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onSuccess(String msg) {
         Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
+        navController.navigate(R.id.eventosRecientesFragment);
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(evento.getDate()+" "+evento.getStartTime(),format);
+
+        Calendar now = Calendar.getInstance();
+
+        if(prefs.getBoolean("NotObj",false) &&
+                newEve &&
+                now.getTimeInMillis() != date.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        ){
+            iniJob();
+        }
     }
 
     @Override

@@ -45,8 +45,6 @@ public class LoginRepositoriFirebase implements LoginContract.Repository {
     @Override
     public void login(String email, String pass) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        Log.d(TAG, "signInWithCustomToken:success");
-
         mAuth.signInWithEmailAndPassword(email, pass)
             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -55,24 +53,20 @@ public class LoginRepositoriFirebase implements LoginContract.Repository {
                         // Sign in success, update UI with the signed-in user's information
                         Call<UserResponse> call =  ToStudyApiAdapter.getApiService().getUserInfo(email);
                         call.enqueue(new Callback<UserResponse>() {
-
                             @Override
                             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                                 UserResponse user = response.body();
                                 interactor.onSuccess("usuario correcto", new User(user.getId(), user.getUser(), user.getEmail(), user.getImg()));
                             }
-
                             @Override
                             public void onFailure(Call<UserResponse> call, Throwable t) {
                                 interactor.onFailure("Error de autenticacion");
                             }
                         });
-
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithCustomToken:failure", task.getException());
                         interactor.onFailure("Error de autenticacion" + task.getException());
-
                     }
                 }
             });
