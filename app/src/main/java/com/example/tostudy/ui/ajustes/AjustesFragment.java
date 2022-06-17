@@ -88,15 +88,15 @@ public class AjustesFragment extends Fragment implements OnRepositoryCallBack {
         }
 
         if (prefs.getBoolean("NotEvent",false)){
-            binding.swNotEve.setChecked(false);
-        }else {
             binding.swNotEve.setChecked(true);
+        }else {
+            binding.swNotEve.setChecked(false);
         }
 
         if (prefs.getBoolean("NotObj",false)){
-            binding.swNotObj.setChecked(false);
-        }else {
             binding.swNotObj.setChecked(true);
+        }else {
+            binding.swNotObj.setChecked(false);
         }
 
         binding.swOrdEve.setOnCheckedChangeListener((buttonView, isChecked) -> {

@@ -245,9 +245,9 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
     @Override
     public void onSuccess(String msg) {
         Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
-        navController.navigate(R.id.eventosRecientesFragment);
 
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime date = LocalDateTime.parse(evento.getDate()+" "+evento.getStartTime(),format);
 
         Calendar now = Calendar.getInstance();
@@ -258,6 +258,7 @@ public class EditarEventoFragment extends Fragment implements MainActivity.OnBac
         ){
             iniJob();
         }
+        navController.navigate(R.id.eventosRecientesFragment);
     }
 
     @Override

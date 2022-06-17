@@ -112,7 +112,34 @@ public class EventoRepositoryRoom implements EventoContract.Repository, EveManag
 
     @Override
     public void undo(Evento evento) {
-        add(evento);
+        String data = "{" +
+                "\"userId\": \""+evento.getUserId()+"\"," +
+                "\"name\": \""+evento.getName()+"\"," +
+                "\"startTime\": \""+evento.getStartTime()+"\"," +
+                "\"finishTime\": \""+evento.getFinishTime()+"\"," +
+                "\"date\": \""+evento.getDate()+"\"," +
+                "\"description\": \""+evento.getDescription()+"\"," +
+                "\"priority\": \""+evento.getPriority()+"\""+
+                "}";
+        Call<BooleanResponse> call = ToStudyApiAdapter.getApiService().saveEvents(
+                data
+        );
+        call.enqueue(new Callback<BooleanResponse>() {
+
+            @Override
+            public void onResponse(Call<BooleanResponse> call, Response<BooleanResponse> response) {
+                BooleanResponse insertado = response.body();
+                if (insertado.getResult().equals("true"))
+                    interactor.onSuccess("Elemento recuperado");
+                else
+                    interactor.onFailure("Error al recuperar el evento");
+            }
+
+            @Override
+            public void onFailure(Call<BooleanResponse> call, Throwable t) {
+                interactor.onFailure("Error al recuperar el evento");
+            }
+        });
     }
 
 
@@ -136,14 +163,14 @@ public class EventoRepositoryRoom implements EventoContract.Repository, EveManag
             public void onResponse(Call<BooleanResponse> call, Response<BooleanResponse> response) {
                 BooleanResponse insertado = response.body();
                 if (insertado.getResult().equals("true"))
-                    interactor.onSuccess("Elemento añadido");
+                    interactorM.onSuccess("Elemento añadido");
                 else
-                    interactor.onFailure("Error al guardar el evento");
+                    interactorM.onFailure("Error al guardar el evento");
             }
 
             @Override
             public void onFailure(Call<BooleanResponse> call, Throwable t) {
-                interactor.onFailure("Error al guardar el evento");
+                interactorM.onFailure("Error al guardar el evento");
             }
         });
     }
@@ -169,14 +196,14 @@ public class EventoRepositoryRoom implements EventoContract.Repository, EveManag
             public void onResponse(Call<BooleanResponse> call, Response<BooleanResponse> response) {
                 BooleanResponse insertado = response.body();
                 if (insertado.getResult().equals("true"))
-                    interactor.onSuccess("Elemento editado");
+                    interactorM.onSuccess("Elemento editado");
                 else
-                    interactor.onFailure("Error al editar el evento");
+                    interactorM.onFailure("Error al editar el evento");
             }
 
             @Override
             public void onFailure(Call<BooleanResponse> call, Throwable t) {
-                interactor.onFailure("Error al editar el evento");
+                interactorM.onFailure("Error al editar el evento");
             }
         });
     }
